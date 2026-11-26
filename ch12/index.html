@@ -1,0 +1,2348 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="ORACLE MASTER Silver SQL（1Z0-071）の問題を「判定基準」で解くための論点別テキスト">
+      
+      
+      
+        <link rel="canonical" href="https://shoushinei.github.io/Oracle-Database-SQL/ch12/">
+      
+      
+        <link rel="prev" href="../ch11/">
+      
+      
+        <link rel="next" href="../ch13/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+    
+    
+      
+        <title>第12章 DDLによる表の管理 - Silver SQL 論点潰しテキスト</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.8c3ca2c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#12-ddl" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href=".." title="Silver SQL 論点潰しテキスト" class="md-header__button md-logo" aria-label="Silver SQL 論点潰しテキスト" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Silver SQL 論点潰しテキスト
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第12章 DDLによる表の管理
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="deep-orange"  aria-label="ダークモードに切り替え"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切り替え" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="deep-orange"  aria-label="ライトモードに切り替え"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切り替え" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/shoushinei/Oracle-Database-SQL" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    shoushinei/Oracle-Database-SQL
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Silver SQL 論点潰しテキスト" class="md-nav__button md-logo" aria-label="Silver SQL 論点潰しテキスト" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Silver SQL 論点潰しテキスト
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/shoushinei/Oracle-Database-SQL" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    shoushinei/Oracle-Database-SQL
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howto/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    問題タイプ別の解き方
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第1章 RDBとOracleの基礎
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第2章 SELECTの基礎とデータの扱い
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第3章 検索条件とソート・置換変数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第4章 単一行関数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第5章 変換関数・NULL関数・条件式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第6章 集計関数とGROUP BY
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第7章 結合
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch08/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第8章 副問合せ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch09/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第9章 集合演算
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch10/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第10章 DMLとトランザクション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch11/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第11章 索引・シーケンス・シノニム
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    第12章 DDLによる表の管理
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    第12章 DDLによる表の管理
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#naming" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-1 命名規則
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-2 DEFAULT（列のデフォルト値）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constraint-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-3 制約の書き方
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#not-null" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-4 NOT NULL制約
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unique-pk" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-5 UNIQUE制約・PRIMARY KEY制約
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fk" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-6 FOREIGN KEY制約
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-7 CHECK制約
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constraint-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-8 制約の追加・無効化・削除
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alter-add" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-9 列の追加（ALTER TABLE ADD）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alter-modify" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-10 列の変更（ALTER TABLE MODIFY）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12-10 列の変更（ALTER TABLE MODIFY）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例：データ入りの表
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alter-drop" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-11 列の削除（DROP）と未使用化（SET UNUSED）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-12 読取り専用表（READ ONLY）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rename-move" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-13 名前の変更・表の移動
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drop-truncate" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-14 DROP TABLE / TRUNCATE TABLE / DELETE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ctas" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-15 CREATE TABLE AS SELECT（CTAS）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#temp-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-16 一時表
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#external" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-17 外部表
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz" class="md-nav__link">
+    <span class="md-ellipsis">
+      ○×クイック判定
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch13/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第13章 ビュー
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch14/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第14章 ユーザー・権限・ロール
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch15/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第15章 データディクショナリ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch16/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第16章 タイムゾーンと期間
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    付録
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            付録
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix-errors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ORAエラー逆引き
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix-checklist/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    直前チェックリスト
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#naming" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-1 命名規則
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-2 DEFAULT（列のデフォルト値）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constraint-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-3 制約の書き方
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#not-null" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-4 NOT NULL制約
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unique-pk" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-5 UNIQUE制約・PRIMARY KEY制約
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fk" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-6 FOREIGN KEY制約
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-7 CHECK制約
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constraint-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-8 制約の追加・無効化・削除
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alter-add" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-9 列の追加（ALTER TABLE ADD）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alter-modify" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-10 列の変更（ALTER TABLE MODIFY）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12-10 列の変更（ALTER TABLE MODIFY）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例：データ入りの表
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alter-drop" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-11 列の削除（DROP）と未使用化（SET UNUSED）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-12 読取り専用表（READ ONLY）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rename-move" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-13 名前の変更・表の移動
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drop-truncate" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-14 DROP TABLE / TRUNCATE TABLE / DELETE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ctas" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-15 CREATE TABLE AS SELECT（CTAS）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#temp-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-16 一時表
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#external" class="md-nav__link">
+    <span class="md-ellipsis">
+      12-17 外部表
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz" class="md-nav__link">
+    <span class="md-ellipsis">
+      ○×クイック判定
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="12-ddl">第12章 DDLによる表の管理<a class="headerlink" href="#12-ddl" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">この章で問われる形</p>
+<ul>
+<li>「次のCREATE TABLE文のうち、<strong>構文として正しい</strong>ものはどれですか」</li>
+<li>「すでにデータが格納されている表に対して <strong>実行できる</strong> コマンドはどれですか」</li>
+<li>「制約に関して正しい記述はどれですか」「エラーを解消するには何のオプションを付けますか」</li>
+<li>「列の削除／未使用列について正しい記述はどれですか」</li>
+<li>「TRUNCATE について正しい記述はどれですか」</li>
+<li>「CREATE TABLE AS SELECT の結果について正しい記述はどれですか」</li>
+<li>「一時表／外部表について正しい記述はどれですか」</li>
+</ul>
+</div>
+<hr />
+<h2 id="naming">12-1 命名規則<a class="headerlink" href="#naming" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準：表名・列名など（二重引用符なし）</strong></p>
+<ol>
+<li>長さは <strong>1〜128バイト</strong>（12.2以降。それ以前は30バイト）</li>
+<li><strong>先頭は英字</strong></li>
+<li>使える文字は <strong>英数字・<code>_</code>・<code>$</code>・<code>#</code></strong></li>
+<li><strong>予約語は不可</strong>（<code>TABLE</code>、<code>SELECT</code>、<code>DATE</code>、<code>NUMBER</code> など）</li>
+<li>大文字小文字は区別されない（大文字で格納される）</li>
+<li><strong>同じスキーマ・同じ名前空間</strong> の中で重複できない</li>
+<li><strong>表・ビュー・シーケンス・プライベートシノニム</strong> などは同じ名前空間 → 同名不可</li>
+<li><strong>索引・制約</strong> はそれぞれ別の名前空間 → 表と同じ名前でもよい</li>
+</ol>
+<p><strong>二重引用符で囲む</strong> と、上の2〜5の制限がなくなる（ただし以後も必ず <code>"..."</code> で同じ表記で参照する）</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>名前</th>
+<th>判定</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>emp_2024</code></td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td><code>emp#1</code>、<code>emp$</code></td>
+<td>✅</td>
+<td><code>#</code> <code>$</code> は可</td>
+</tr>
+<tr>
+<td><code>2024_emp</code></td>
+<td>❌</td>
+<td>数字で始まる</td>
+</tr>
+<tr>
+<td><code>emp-data</code></td>
+<td>❌</td>
+<td><code>-</code> は不可</td>
+</tr>
+<tr>
+<td><code>emp data</code></td>
+<td>❌</td>
+<td>空白は不可</td>
+</tr>
+<tr>
+<td><code>order</code></td>
+<td>❌</td>
+<td>予約語</td>
+</tr>
+<tr>
+<td><code>"emp-data"</code></td>
+<td>✅</td>
+<td>引用符で囲めば可</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="default">12-2 DEFAULT（列のデフォルト値）<a class="headerlink" href="#default" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li>書く位置は <strong>データ型の直後、制約より前</strong>：<code>列 型 DEFAULT 式 [制約...]</code></li>
+<li>指定できるもの：<strong>リテラル、式、SQL関数</strong>（<code>SYSDATE</code>、<code>USER</code> など）、シーケンスの NEXTVAL（12c以降）</li>
+<li>指定できないもの：<strong>他の列</strong>（ORA-00984）、<code>ROWNUM</code> などの疑似列、副問合せ</li>
+<li>値の型は列の型と合っていること</li>
+<li>DEFAULTが使われるのは、INSERTで <strong>列を省略したとき</strong> か <strong><code>DEFAULT</code> キーワードを指定したとき</strong>
+   → <strong>明示的に NULL を指定すると NULL が入る</strong>（<code>DEFAULT ON NULL</code> を除く）</li>
+<li>後から DEFAULT を変更しても、<strong>既存の行は変わらない</strong></li>
+</ol>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">reg_date</span><span class="w">  </span><span class="nb">DATE</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">SYSDATE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">              </span><span class="c1">-- ✅ DEFAULT → 制約の順</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">reg_date</span><span class="w">  </span><span class="nb">DATE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">SYSDATE</span><span class="p">,</span><span class="w">              </span><span class="c1">-- ❌ 順番が逆</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">status</span><span class="w">    </span><span class="n">VARCHAR2</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">'NEW'</span><span class="p">,</span><span class="w">                 </span><span class="c1">-- ✅</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">short_nm</span><span class="w">  </span><span class="n">VARCHAR2</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">SUBSTR</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">),</span><span class="w">     </span><span class="c1">-- ❌ 他の列を参照</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">created</span><span class="w">   </span><span class="n">VARCHAR2</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">USER</span><span class="p">,</span><span class="w">                  </span><span class="c1">-- ✅ SQL関数</span>
+</code></pre></div>
+<hr />
+<h2 id="constraint-syntax">12-3 制約の書き方<a class="headerlink" href="#constraint-syntax" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>列制約（インライン）</th>
+<th>表制約（アウトオブライン）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>書く場所</td>
+<td>列定義の中</td>
+<td>列定義の後（カンマで区切って）</td>
+</tr>
+<tr>
+<td>形</td>
+<td><code>列 型 [CONSTRAINT 名] 制約</code></td>
+<td><code>[CONSTRAINT 名] 制約 (列, ...)</code></td>
+</tr>
+<tr>
+<td>NOT NULL</td>
+<td>✅ <strong>列制約でのみ</strong> 書ける</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>複数列（複合キー）</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>外部キー</td>
+<td><code>列 型 REFERENCES 親(列)</code>（<strong>FOREIGN KEY は書かない</strong>）</td>
+<td><code>FOREIGN KEY (列) REFERENCES 親(列)</code></td>
+</tr>
+<tr>
+<td>CHECK</td>
+<td><strong>自分の列だけ</strong> 参照できる</td>
+<td>同じ行の <strong>複数の列</strong> を参照できる</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>1つの列に <strong>複数の列制約</strong> を並べてよい（<code>PRIMARY KEY NOT NULL</code>、<code>UNIQUE NOT NULL</code> も可）</li>
+<li>制約名を省略すると <code>SYS_Cnnnnnn</code> という名前が付く</li>
+<li>制約名は <strong>スキーマ内で一意</strong></li>
+</ul>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">emp_id</span><span class="w">   </span><span class="nb">NUMBER</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w">  </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">emp_pk</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w">           </span><span class="c1">-- ✅ 列制約</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="n">email</span><span class="w">    </span><span class="n">VARCHAR2</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">UNIQUE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">                       </span><span class="c1">-- ✅ 複数の列制約</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="n">dept_id</span><span class="w">  </span><span class="nb">NUMBER</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w">  </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">dept</span><span class="p">(</span><span class="n">dept_id</span><span class="p">),</span><span class="w">                </span><span class="c1">-- ✅ 列制約のFK</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="n">mgr_id</span><span class="w">   </span><span class="nb">NUMBER</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="n">salary</span><span class="w">   </span><span class="nb">NUMBER</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w">  </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">salary</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span><span class="w">                      </span><span class="c1">-- ✅ 自分の列だけ</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="n">bonus</span><span class="w">    </span><span class="nb">NUMBER</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">emp_mgr_fk</span><span class="w"> </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">mgr_id</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">emp</span><span class="p">(</span><span class="n">emp_id</span><span class="p">),</span><span class="w">   </span><span class="c1">-- ✅ 表制約のFK</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">emp_bonus_ck</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">bonus</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">salary</span><span class="p">)</span><span class="w">               </span><span class="c1">-- ✅ 表制約なら複数列OK</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">dept_id</span><span class="w"> </span><span class="nb">NUMBER</span><span class="w"> </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">dept</span><span class="p">(</span><span class="n">dept_id</span><span class="p">)</span><span class="w">            </span><span class="c1">-- ❌ 列制約にFOREIGN KEYは書かない</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">bonus</span><span class="w">   </span><span class="nb">NUMBER</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">bonus</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">salary</span><span class="p">)</span><span class="w">                          </span><span class="c1">-- ❌ 列制約のCHECKで他の列</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">emp_nn</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="p">(</span><span class="n">email</span><span class="p">)</span><span class="w">                             </span><span class="c1">-- ❌ NOT NULLは表制約にできない</span>
+</code></pre></div>
+<hr />
+<h2 id="not-null">12-4 NOT NULL制約<a class="headerlink" href="#not-null" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li><strong>列制約としてのみ</strong> 定義できる（表制約は ❌）</li>
+<li>後から追加するときは <strong><code>ALTER TABLE ... MODIFY</code></strong>（ADD CONSTRAINT ではない）</li>
+<li>既存の行にNULLがあると追加できない（ORA-02296）</li>
+<li>DESCRIBEの「Null?」欄に表示される唯一の制約</li>
+</ol>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">MODIFY</span><span class="w"> </span><span class="p">(</span><span class="n">email</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">);</span><span class="w">                           </span><span class="c1">-- ✅</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">MODIFY</span><span class="w"> </span><span class="p">(</span><span class="n">email</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">emp_email_nn</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">);</span><span class="w">   </span><span class="c1">-- ✅</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">emp_email_nn</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="p">(</span><span class="n">email</span><span class="p">);</span><span class="w">      </span><span class="c1">-- ❌</span>
+</code></pre></div>
+<hr />
+<h2 id="unique-pk">12-5 UNIQUE制約・PRIMARY KEY制約<a class="headerlink" href="#unique-pk" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>UNIQUE</th>
+<th>PRIMARY KEY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>重複</td>
+<td>不可</td>
+<td>不可</td>
+</tr>
+<tr>
+<td>NULL</td>
+<td><strong>可（何行でも）</strong></td>
+<td><strong>不可</strong></td>
+</tr>
+<tr>
+<td>1表にいくつ</td>
+<td>複数</td>
+<td><strong>1つ</strong></td>
+</tr>
+<tr>
+<td>索引</td>
+<td>一意索引を自動作成（既存の索引があれば流用）</td>
+<td>同左</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h2 id="fk">12-6 FOREIGN KEY制約<a class="headerlink" href="#fk" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li>参照先（親）は <strong>主キーまたは一意キー</strong> の列</li>
+<li>子の値は、親に <strong>存在する値</strong> か <strong>NULL</strong></li>
+<li>親にない値を子にINSERT／UPDATE → ORA-02291</li>
+<li>子から参照されている親の行の削除は、オプションによって変わる</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>外部キーのオプション</th>
+<th>親の行を削除すると</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>（なし）</td>
+<td><strong>エラー</strong>（ORA-02292）</td>
+</tr>
+<tr>
+<td><code>ON DELETE CASCADE</code></td>
+<td><strong>子の行も削除</strong> される</td>
+</tr>
+<tr>
+<td><code>ON DELETE SET NULL</code></td>
+<td>子の外部キー列が <strong>NULL</strong> になる</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>子から参照されている親表は：</li>
+<li><code>DROP TABLE</code> → エラー（<code>CASCADE CONSTRAINTS</code> を付ければ、FK制約を削除して表を削除）</li>
+<li><code>TRUNCATE</code> → エラー（子が空でも）</li>
+<li>外部キーに <strong>索引は自動作成されない</strong></li>
+</ol>
+</div>
+<hr />
+<h2 id="check">12-7 CHECK制約<a class="headerlink" href="#check" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li>各行が条件を満たすこと。ただし <strong>条件が不明（NULL）なら違反にならない</strong></li>
+<li>参照できないもの：</li>
+<li><strong>他の行</strong>・<strong>他の表</strong>（副問合せ）</li>
+<li><code>SYSDATE</code>・<code>CURRENT_DATE</code>・<code>USER</code> などの関数</li>
+<li><code>ROWNUM</code>・<code>NEXTVAL</code>・<code>CURRVAL</code> などの疑似列</li>
+<li><strong>列制約の CHECK は自分の列だけ</strong> を参照できる（他の列は ORA-02438）。複数列は <strong>表制約</strong> で</li>
+<li>日付の定数を使うときは <strong>4桁の年</strong> まで完全に指定する（不完全だと ORA-02436）</li>
+</ol>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">salary</span><span class="w"> </span><span class="nb">NUMBER</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">salary</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">99999</span><span class="p">)</span><span class="w">                </span><span class="c1">-- ✅</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">start_d</span><span class="w"> </span><span class="nb">DATE</span><span class="p">,</span><span class="w"> </span><span class="n">end_d</span><span class="w"> </span><span class="nb">DATE</span><span class="p">,</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">end_d</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">start_d</span><span class="p">)</span><span class="w">                  </span><span class="c1">-- ✅ 表制約</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">hire_date</span><span class="w"> </span><span class="nb">DATE</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">hire_date</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">SYSDATE</span><span class="p">)</span><span class="w">                        </span><span class="c1">-- ❌ SYSDATE不可</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">salary</span><span class="w"> </span><span class="nb">NUMBER</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">salary</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="p">))</span><span class="w">       </span><span class="c1">-- ❌ 副問合せ不可</span>
+</code></pre></div>
+<hr />
+<h2 id="constraint-state">12-8 制約の追加・無効化・削除<a class="headerlink" href="#constraint-state" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">表</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="p">[</span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="err">名</span><span class="p">]</span><span class="w"> </span><span class="err">制約</span><span class="w"> </span><span class="p">(</span><span class="err">列</span><span class="p">...);</span><span class="w">     </span><span class="c1">-- 追加（NOT NULLはMODIFY）</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">表</span><span class="w"> </span><span class="n">DISABLE</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="err">名</span><span class="w"> </span><span class="p">[</span><span class="k">CASCADE</span><span class="p">];</span><span class="w">      </span><span class="c1">-- 無効化</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">表</span><span class="w"> </span><span class="n">ENABLE</span><span class="w"> </span><span class="p">[</span><span class="n">VALIDATE</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">NOVALIDATE</span><span class="p">]</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="err">名</span><span class="p">;</span><span class="w">  </span><span class="c1">-- 有効化</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">表</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="err">名</span><span class="w"> </span><span class="p">[</span><span class="k">CASCADE</span><span class="p">];</span><span class="w">         </span><span class="c1">-- 削除</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">表</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">[</span><span class="k">CASCADE</span><span class="p">];</span>
+</code></pre></div>
+<ol>
+<li>制約の追加・有効化（VALIDATE）は <strong>既存データもチェック</strong> する。違反があれば失敗</li>
+<li><strong>有効な外部キーから参照されている主キー／一意キー</strong> を無効化・削除するには <strong><code>CASCADE</code></strong> が必要</li>
+<li><code>DISABLE ... CASCADE</code> → 参照している <strong>外部キー制約も無効化</strong> される（削除はされない）</li>
+<li><code>DROP ... CASCADE</code> → 参照している <strong>外部キー制約も削除</strong> される</li>
+<li>主キー／一意キーを無効化すると、自動作成された <strong>一意索引は削除</strong> される（有効化で再作成）</li>
+<li><code>CASCADE</code> で無効化された外部キーは、主キーを有効化しても <strong>自動では有効化されない</strong></li>
+<li><code>ENABLE NOVALIDATE</code> … 既存データはチェックせず、<strong>以後の変更だけ</strong> チェック</li>
+<li><code>DEFERRABLE INITIALLY DEFERRED</code> の制約は <strong>COMMIT時</strong> にチェックされる</li>
+</ol>
+</div>
+<table>
+<thead>
+<tr>
+<th>「親表の主キーを無効化したらエラー。解消するには？」</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ON DELETE SET NULL</code> を付ける</td>
+<td>❌（外部キーの削除時の動作。無効化とは無関係）</td>
+</tr>
+<tr>
+<td><code>ON DELETE CASCADE</code> を付ける</td>
+<td>❌（同上）</td>
+</tr>
+<tr>
+<td><code>CASCADE</code> を付ける → 外部キーが <strong>削除</strong> される</td>
+<td>❌（DISABLEでは削除されない）</td>
+</tr>
+<tr>
+<td><code>CASCADE</code> を付ける → 外部キーも <strong>同時に無効</strong> になる</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="alter-add">12-9 列の追加（ALTER TABLE ADD）<a class="headerlink" href="#alter-add" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li><code>ALTER TABLE 表 ADD (列 型 [DEFAULT ...] [制約...], ...)</code> … 複数列を一度に追加できる</li>
+<li>新しい列は <strong>最後</strong> に追加される（位置は指定できない）</li>
+<li><strong>データがある表</strong> に追加すると、既存の行の値は <strong>NULL</strong>（DEFAULTがあればその値）</li>
+<li>したがって既存データがあるとき：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>追加する列</th>
+<th>判定</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>制約なし</td>
+<td>✅</td>
+<td>既存行はNULL</td>
+</tr>
+<tr>
+<td><code>DEFAULT 値 NOT NULL</code></td>
+<td>✅</td>
+<td>既存行にDEFAULTが入る</td>
+</tr>
+<tr>
+<td><code>NOT NULL</code>（DEFAULTなし）</td>
+<td>❌</td>
+<td>既存行がNULLになり違反</td>
+</tr>
+<tr>
+<td><code>CHECK (...)</code></td>
+<td>✅</td>
+<td>NULLはCHECK違反にならない</td>
+</tr>
+<tr>
+<td><code>UNIQUE</code></td>
+<td>✅</td>
+<td>NULLは何行でも可</td>
+</tr>
+<tr>
+<td><code>PRIMARY KEY</code></td>
+<td>❌</td>
+<td>既存行がNULL</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>列数の上限は <strong>1000</strong>（<strong>未使用列も数に含まれる</strong>）</li>
+</ol>
+</div>
+<hr />
+<h2 id="alter-modify">12-10 列の変更（ALTER TABLE MODIFY）<a class="headerlink" href="#alter-modify" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<table>
+<thead>
+<tr>
+<th>変更内容</th>
+<th>データがあるとき</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文字列の長さ・数値の精度を <strong>大きく</strong> する</td>
+<td>✅ 常に可</td>
+</tr>
+<tr>
+<td>文字列（VARCHAR2/CHAR）の長さを <strong>小さく</strong> する</td>
+<td>既存の値が <strong>すべて収まれば</strong> ✅</td>
+</tr>
+<tr>
+<td><strong>数値の精度・位取りを小さく</strong> する</td>
+<td>❌ <strong>列が全行NULLのときだけ</strong> 可</td>
+</tr>
+<tr>
+<td><strong>データ型を変更</strong> する</td>
+<td>❌ <strong>列が全行NULLのときだけ</strong> 可（CHAR⇔VARCHAR2は例外的に可）</td>
+</tr>
+<tr>
+<td><strong>NOT NULL</strong> を付ける</td>
+<td>既存の行に <strong>NULLがなければ</strong> ✅</td>
+</tr>
+<tr>
+<td><strong>DEFAULT</strong> を設定・変更</td>
+<td>✅（<strong>以後のINSERTにだけ</strong> 効く。既存のNULLは埋まらない）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="_1">例：データ入りの表<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NAME</th>
+<th>EMAIL</th>
+<th>SALARY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>A</td>
+<td>a@x.com</td>
+<td>100</td>
+</tr>
+<tr>
+<td>2</td>
+<td>B</td>
+<td>b@y.com</td>
+<td><em>(NULL)</em></td>
+</tr>
+<tr>
+<td>3</td>
+<td>C</td>
+<td><em>(NULL)</em></td>
+<td>108</td>
+</tr>
+</tbody>
+</table>
+<p>（SALARY は <code>NUMBER(6)</code>、EMAIL は <code>VARCHAR2(15)</code>）</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">MODIFY</span><span class="w"> </span><span class="p">(</span><span class="n">salary</span><span class="w"> </span><span class="nb">NUMBER</span><span class="p">(</span><span class="mi">8</span><span class="p">));</span><span class="w">                         </span><span class="c1">-- ✅ 精度を大きく</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">MODIFY</span><span class="w"> </span><span class="p">(</span><span class="n">salary</span><span class="w"> </span><span class="nb">NUMBER</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span><span class="w">                         </span><span class="c1">-- ❌ 値が入っている列の精度を小さく</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">MODIFY</span><span class="w"> </span><span class="p">(</span><span class="n">email</span><span class="w"> </span><span class="n">VARCHAR2</span><span class="p">(</span><span class="mi">60</span><span class="p">));</span><span class="w">                       </span><span class="c1">-- ✅ 長さを大きく</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">MODIFY</span><span class="w"> </span><span class="p">(</span><span class="n">email</span><span class="w"> </span><span class="n">VARCHAR2</span><span class="p">(</span><span class="mi">10</span><span class="p">));</span><span class="w">                       </span><span class="c1">-- ✅ 全値が10文字以内なら可</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">MODIFY</span><span class="w"> </span><span class="p">(</span><span class="n">email</span><span class="w"> </span><span class="n">VARCHAR2</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">'TBD'</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">);</span><span class="w">   </span><span class="c1">-- ❌ 既存のNULL行（ID=3）があるのでNOT NULL不可</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">MODIFY</span><span class="w"> </span><span class="p">(</span><span class="n">email</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">'TBD'</span><span class="p">);</span><span class="w">                      </span><span class="c1">-- ✅ 以後のINSERTだけ</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="n">VARCHAR2</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">'Active'</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">);</span><span class="w">  </span><span class="c1">-- ✅ 既存行にDEFAULTが入る</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">ADD と MODIFY で DEFAULT の効き方が違う</p>
+<ul>
+<li><strong>ADD</strong> で <code>DEFAULT ... NOT NULL</code> → 既存行にもDEFAULT値が入るので <strong>成功</strong></li>
+<li><strong>MODIFY</strong> で <code>DEFAULT ... NOT NULL</code> → 既存のNULLは埋まらないので、NULLがあれば <strong>失敗</strong></li>
+</ul>
+</div>
+<hr />
+<h2 id="alter-drop">12-11 列の削除（DROP）と未使用化（SET UNUSED）<a class="headerlink" href="#alter-drop" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>DROP COLUMN</code></th>
+<th><code>SET UNUSED</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>構文</td>
+<td><code>DROP COLUMN 列</code> / <code>DROP (列1, 列2)</code></td>
+<td><code>SET UNUSED COLUMN 列</code> / <code>SET UNUSED (列1, 列2)</code></td>
+</tr>
+<tr>
+<td>複数列をまとめて</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>データ・領域</td>
+<td><strong>すぐに削除・解放</strong></td>
+<td><strong>論理的に使えなくするだけ</strong>（領域は残る）</td>
+</tr>
+<tr>
+<td>処理時間</td>
+<td>データ量に比例</td>
+<td>速い</td>
+</tr>
+<tr>
+<td>列名の再利用</td>
+<td>✅</td>
+<td>✅（未使用列の名前は再利用できる）</td>
+</tr>
+<tr>
+<td>元に戻す</td>
+<td><strong>不可</strong>（DDL：ロールバック不可、ごみ箱にも入らない）</td>
+<td><strong>不可</strong>（ロールバック不可、戻すコマンドもない）</td>
+</tr>
+<tr>
+<td>1000列の上限</td>
+<td>減る</td>
+<td><strong>数に含まれたまま</strong></td>
+</tr>
+<tr>
+<td>後から領域を解放</td>
+<td>—</td>
+<td><code>ALTER TABLE 表 DROP UNUSED COLUMNS</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>表の <strong>すべての列を削除することはできない</strong>（最低1列は残る）</li>
+<li>他の表の外部キーから参照されている列を削除するには <code>CASCADE CONSTRAINTS</code> が必要</li>
+<li>未使用列は SELECT * や DESCRIBE に出てこない（<code>USER_UNUSED_COL_TABS</code> で数を確認）</li>
+</ul>
+</div>
+<table>
+<thead>
+<tr>
+<th>選択肢の言い回し</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>複数の列をまとめて未使用列に変更できる</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>1000列ある表で1列を未使用にすれば1001列目を追加できる</td>
+<td>❌（未使用列も数える）</td>
+</tr>
+<tr>
+<td>SET UNUSED をロールバックすると未使用列を取り戻せる</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>SET UNUSED を実行すると直ちに領域が再利用可能になる</td>
+<td>❌（DROP UNUSED COLUMNS が必要）</td>
+</tr>
+<tr>
+<td>UNDOが残っていれば列の削除をロールバックできる</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>削除した列をごみ箱からリカバリできる</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>未使用に設定した列を使用可能に戻すことはできない</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="read-only">12-12 読取り専用表（READ ONLY）<a class="headerlink" href="#read-only" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<p><code>ALTER TABLE 表 READ ONLY;</code>（戻すときは <code>READ WRITE</code>）</p>
+<table>
+<thead>
+<tr>
+<th>できない ❌</th>
+<th>できる ✅</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INSERT / UPDATE / DELETE / MERGE</td>
+<td>SELECT</td>
+</tr>
+<tr>
+<td><strong>TRUNCATE</strong></td>
+<td>索引の作成・削除</td>
+</tr>
+<tr>
+<td>SELECT ... FOR UPDATE</td>
+<td>制約の追加・削除・有効化・無効化</td>
+</tr>
+<tr>
+<td>列の追加・変更・削除・名前変更、SET UNUSED</td>
+<td>表の名前変更、<strong>DROP TABLE</strong></td>
+</tr>
+<tr>
+<td>FLASHBACK TABLE</td>
+<td>ALTER TABLE MOVE、DROP UNUSED COLUMNS</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">ひっかけ</p>
+<p>「読取り専用表は削除できない」→ ❌（<strong>DROP TABLE はできる</strong>。データを変更する操作ではないため）</p>
+</div>
+<hr />
+<h2 id="rename-move">12-13 名前の変更・表の移動<a class="headerlink" href="#rename-move" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">RENAME</span><span class="w"> </span><span class="err">旧表名</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="err">新表名</span><span class="p">;</span><span class="w">                          </span><span class="c1">-- 自分のスキーマのオブジェクトのみ</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">旧表名</span><span class="w"> </span><span class="k">RENAME</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="err">新表名</span><span class="p">;</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">表</span><span class="w"> </span><span class="k">RENAME</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="err">旧列名</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="err">新列名</span><span class="p">;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">表</span><span class="w"> </span><span class="k">RENAME</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="err">旧</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="err">新</span><span class="p">;</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">表</span><span class="w"> </span><span class="k">MOVE</span><span class="w"> </span><span class="p">[</span><span class="n">TABLESPACE</span><span class="w"> </span><span class="err">表領域</span><span class="p">];</span><span class="w">           </span><span class="c1">-- 表を再編成・移動</span>
+</code></pre></div>
+<ol>
+<li>表名を変えても、索引・制約・権限は <strong>引き継がれる</strong>。参照していたビューやシノニムは <strong>無効</strong> になる</li>
+<li><code>MOVE</code> すると行のROWIDが変わり、索引は <strong>UNUSABLE</strong> になる（<code>UPDATE INDEXES</code> や <code>ONLINE</code> 指定時を除く）</li>
+</ol>
+</div>
+<hr />
+<h2 id="drop-truncate">12-14 DROP TABLE / TRUNCATE TABLE / DELETE<a class="headerlink" href="#drop-truncate" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>DELETE</code></th>
+<th><code>TRUNCATE TABLE</code></th>
+<th><code>DROP TABLE</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分類</td>
+<td>DML</td>
+<td><strong>DDL</strong></td>
+<td>DDL</td>
+</tr>
+<tr>
+<td>消えるもの</td>
+<td>行（WHEREで指定可）</td>
+<td><strong>全行</strong>（WHERE不可）</td>
+<td>表そのもの（構造・データ・索引・制約・トリガー）</td>
+</tr>
+<tr>
+<td>ロールバック</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>暗黙コミット</td>
+<td>なし</td>
+<td><strong>あり</strong></td>
+<td>あり</td>
+</tr>
+<tr>
+<td>ごみ箱（RECYCLEBIN）</td>
+<td>—</td>
+<td><strong>入らない</strong>（戻せない）</td>
+<td><strong>入る</strong>（<code>PURGE</code> 指定時を除く）</td>
+</tr>
+<tr>
+<td>元に戻す</td>
+<td>ROLLBACK</td>
+<td>不可</td>
+<td><code>FLASHBACK TABLE 表 TO BEFORE DROP</code></td>
+</tr>
+<tr>
+<td>索引</td>
+<td>行に応じて更新</td>
+<td><strong>索引のデータも切り捨て</strong></td>
+<td>一緒に削除</td>
+</tr>
+<tr>
+<td>領域</td>
+<td>解放されない</td>
+<td><strong>解放される</strong>（HWMを下げる）</td>
+<td>解放（ごみ箱にある間は保持）</td>
+</tr>
+<tr>
+<td>DELETEトリガー</td>
+<td>起動する</td>
+<td>起動しない</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>子表から参照されている親表は <strong>TRUNCATE も DROP もエラー</strong>（DROPは <code>CASCADE CONSTRAINTS</code> で可）</li>
+<li>他人の表を TRUNCATE するには <code>DROP ANY TABLE</code> システム権限が必要</li>
+<li>DROP TABLE しても、その表を参照する <strong>ビュー・シノニムは残る</strong>（無効になる）</li>
+</ul>
+</div>
+<table>
+<thead>
+<tr>
+<th>選択肢の言い回し（TRUNCATE）</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WHERE句で切り捨てる行を指定できる</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>ロールバックで切り捨てたデータを取り戻せる</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>ごみ箱のデータを使って切り捨てたデータを取り戻せる</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>表に作成されている索引も同時に切り捨てられる</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="ctas">12-15 CREATE TABLE AS SELECT（CTAS）<a class="headerlink" href="#ctas" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">新表</span><span class="w"> </span><span class="p">[(</span><span class="err">列名</span><span class="p">,</span><span class="w"> </span><span class="p">...)]</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>新しい表に引き継がれる ✅</th>
+<th>引き継がれない ❌</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>列名・データ型（サイズ）</td>
+<td>PRIMARY KEY / UNIQUE / FOREIGN KEY / CHECK 制約</td>
+</tr>
+<tr>
+<td><strong>データ（副問合せの結果の行）</strong></td>
+<td><strong>索引</strong></td>
+</tr>
+<tr>
+<td><strong>NOT NULL 制約</strong></td>
+<td><strong>DEFAULT値</strong></td>
+</tr>
+<tr>
+<td></td>
+<td>トリガー、権限</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>列名リストを書くなら、列の数は副問合せの列数と <strong>一致</strong>。<strong>データ型は書けない</strong></li>
+<li>列名リストを書かないなら、<strong>式には列別名が必要</strong>（ORA-00998）</li>
+<li><strong>定義だけコピー</strong> したいときは、行が返らない条件を付ける（<code>WHERE 1 = 2</code>）</li>
+<li>LONG型の列はコピーできない</li>
+</ol>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">emp_copy</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">                         </span><span class="c1">-- ✅ 全行コピー</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">emp_empty</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">            </span><span class="c1">-- ✅ 構造だけ</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">emp_sal</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">employee_id</span><span class="p">,</span><span class="w"> </span><span class="n">salary</span><span class="o">*</span><span class="mi">12</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">     </span><span class="c1">-- ❌ 式に別名がない</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">emp_sal</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">employee_id</span><span class="p">,</span><span class="w"> </span><span class="n">salary</span><span class="o">*</span><span class="mi">12</span><span class="w"> </span><span class="n">annual</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">  </span><span class="c1">-- ✅</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">emp_sal</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">annual</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">employee_id</span><span class="p">,</span><span class="w"> </span><span class="n">salary</span><span class="o">*</span><span class="mi">12</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">  </span><span class="c1">-- ✅ 列名リスト</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">emp_sal</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="nb">NUMBER</span><span class="p">,</span><span class="w"> </span><span class="n">annual</span><span class="w"> </span><span class="nb">NUMBER</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="p">...;</span><span class="w">            </span><span class="c1">-- ❌ 型は書けない</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>選択肢の言い回し</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>コピー先は空の表として作成される</td>
+<td>❌（WHEREがなければ全行）</td>
+</tr>
+<tr>
+<td>すべての行がコピーされる</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>NOT NULL制約のみがコピーされる</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>すべての制約がコピーされる</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="temp-table">12-16 一時表<a class="headerlink" href="#temp-table" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準：グローバル一時表（GTT）</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="k">TEMPORARY</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">表</span><span class="w"> </span><span class="p">(...)</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">ON</span><span class="w"> </span><span class="k">COMMIT</span><span class="w"> </span><span class="err">{</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">ROWS</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">PRESERVE</span><span class="w"> </span><span class="k">ROWS</span><span class="w"> </span><span class="err">}</span><span class="p">;</span><span class="w">     </span><span class="c1">-- 省略時 DELETE ROWS</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>DELETE ROWS</th>
+<th>PRESERVE ROWS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>データが消えるとき</td>
+<td><strong>COMMIT時</strong>（トランザクション終了）</td>
+<td><strong>セッション終了時</strong></td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><strong>表の定義は永続的</strong>。権限のあるユーザーの <strong>全セッションから定義を参照できる</strong>。セッションが終わっても定義は残る（DROP TABLE で削除）</li>
+<li><strong>データは各セッション専用</strong>。同じユーザーでも <strong>別のセッションからは見えない</strong></li>
+<li>DMLは <strong>ロールバックできる</strong></li>
+<li><strong>TRUNCATE できる</strong>（自分のセッションのデータだけ消える）</li>
+<li>索引やビューを作成できる。外部キー制約は定義できない</li>
+</ol>
+<p><strong>判定基準：プライベート一時表（18c以降）</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">PRIVATE</span><span class="w"> </span><span class="k">TEMPORARY</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">ora$ptt_表</span><span class="w"> </span><span class="p">(...)</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">ON</span><span class="w"> </span><span class="k">COMMIT</span><span class="w"> </span><span class="err">{</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="n">DEFINITION</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">PRESERVE</span><span class="w"> </span><span class="n">DEFINITION</span><span class="w"> </span><span class="err">}</span><span class="p">;</span><span class="w">   </span><span class="c1">-- 省略時 DROP DEFINITION</span>
+</code></pre></div>
+<ol>
+<li>名前は <strong><code>ORA$PTT_</code> で始める</strong></li>
+<li><strong>定義もデータも作成したセッションだけ</strong> のもの（メモリ上）</li>
+<li><code>DROP DEFINITION</code> → トランザクション終了時に <strong>表ごと</strong> 消える。<code>PRESERVE DEFINITION</code> → セッション終了時に消える</li>
+<li>索引は作成できない</li>
+</ol>
+</div>
+<table>
+<thead>
+<tr>
+<th>選択肢の言い回し（GTT・PRESERVE ROWS）</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>セッション終了時に表定義も削除される</td>
+<td>❌（定義は残る）</td>
+</tr>
+<tr>
+<td>SELECT権限を付与されたユーザーの全セッションから表定義を参照できる</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>同じユーザーの別のセッションから行データを参照できる</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>行ったトランザクションをロールバックできる</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>TRUNCATEコマンドは実行できない</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="external">12-17 外部表<a class="headerlink" href="#external" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">表</span><span class="w"> </span><span class="p">(</span><span class="err">列</span><span class="w"> </span><span class="p">...)</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">ORGANIZATION</span><span class="w"> </span><span class="k">EXTERNAL</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">  </span><span class="k">TYPE</span><span class="w"> </span><span class="n">ORACLE_LOADER</span><span class="w">            </span><span class="c1">-- または ORACLE_DATAPUMP（省略時 ORACLE_LOADER）</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">  </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">DIRECTORY</span><span class="w"> </span><span class="err">ディレクトリオブジェクト</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">  </span><span class="k">ACCESS</span><span class="w"> </span><span class="k">PARAMETERS</span><span class="w"> </span><span class="p">(...)</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">  </span><span class="k">LOCATION</span><span class="w"> </span><span class="p">(</span><span class="s1">'ファイル名'</span><span class="p">)</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="p">)</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="p">[</span><span class="n">REJECT</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="n">n</span><span class="p">];</span>
+</code></pre></div>
+<ol>
+<li>データは <strong>OSのファイル</strong> にあり、データベースには <strong>定義（メタデータ）だけ</strong> が格納される</li>
+<li><strong>読取り専用</strong>：<strong>SELECTはできる</strong> が、<strong>INSERT / UPDATE / DELETE はできない</strong>。索引も作れない</li>
+<li>ファイルの場所は <strong>ディレクトリオブジェクト</strong> で指定（READ／WRITE 権限が必要）</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>アクセスドライバ</th>
+<th>対応ファイル</th>
+<th>ロード（読み込み）</th>
+<th>アンロード（書き出し）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ORACLE_LOADER</strong>（<strong>既定</strong>）</td>
+<td>テキスト（CSVなど）</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>ORACLE_DATAPUMP</strong></td>
+<td>専用のダンプファイル</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><code>ORACLE_DATAPUMP</code> で <code>CREATE TABLE ... ORGANIZATION EXTERNAL (...) AS SELECT ...</code> とすると、
+   <strong>問合せ結果をダンプファイルに書き出し（アンロード）</strong>、その外部表を作る
+   → ダンプファイルを別のデータベースに移して、外部表として読み込める</li>
+</ol>
+</div>
+<table>
+<thead>
+<tr>
+<th>選択肢の言い回し</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>デフォルトは ORACLE_LOADER アクセスドライバ</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>ORACLE_LOADER を使うとデータのロードとアンロードが可能</td>
+<td>❌（ロードのみ）</td>
+</tr>
+<tr>
+<td>フラットファイル（CSV）をロードしたい場合は ORACLE_DATAPUMP を使う</td>
+<td>❌（ORACLE_LOADER）</td>
+</tr>
+<tr>
+<td>外部表に対して UPDATE 文を実行できる</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>外部表に対して SELECT 文を実行できる</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>OS上のCSVファイルを、表にロードせずにSELECTで問い合わせできる</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>OS上のCSVファイルを、表にロードせずにUPDATEで更新できる</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>複雑な問合せ結果をダンプファイルにアンロードして別DBに転送・ロードできる</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>複雑な問合せ結果をCSVファイルにアンロードできる</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><code>ORACLE_DATAPUMP ... AS SELECT</code> で外部表を作成し、ダンプファイルにデータを移入する</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="quiz">○×クイック判定<a class="headerlink" href="#quiz" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>記述</th>
+<th>判定</th>
+<th>ひとこと</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>表名は数字で始めてもよい</td>
+<td>❌</td>
+<td>英字</td>
+</tr>
+<tr>
+<td>索引には表と同じ名前を付けられる</td>
+<td>✅</td>
+<td>名前空間が別</td>
+</tr>
+<tr>
+<td>DEFAULTで他の列を参照できる</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td><code>NOT NULL DEFAULT SYSDATE</code> の順で書ける</td>
+<td>❌</td>
+<td>DEFAULTが先</td>
+</tr>
+<tr>
+<td>NOT NULLは表制約として定義できる</td>
+<td>❌</td>
+<td>列制約のみ</td>
+</tr>
+<tr>
+<td>単一列の制約はどの種類でも列制約・表制約のどちらでも書ける</td>
+<td>❌</td>
+<td>NOT NULLは列制約のみ</td>
+</tr>
+<tr>
+<td>UNIQUE制約の列にNULLは1行だけ</td>
+<td>❌</td>
+<td>何行でも</td>
+</tr>
+<tr>
+<td>CHECK制約で他の行の値を参照できない</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>列制約のCHECKで他の列を参照できる</td>
+<td>❌</td>
+<td>表制約で</td>
+</tr>
+<tr>
+<td>CHECK制約でSYSDATEを使える</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>外部キーには自動で索引が作られる</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>参照されている主キーの無効化にはCASCADEが必要</td>
+<td>✅</td>
+<td>FKも無効化される</td>
+</tr>
+<tr>
+<td>データがある表にNOT NULL列（DEFAULTなし）を追加できる</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>データがある表に DEFAULT付きNOT NULL列を追加できる</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>データがある数値列の精度を小さくできる</td>
+<td>❌</td>
+<td>全行NULLのときのみ</td>
+</tr>
+<tr>
+<td>列のDEFAULTを変更すると既存行も変わる</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>SET UNUSEDは元に戻せる</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>未使用列は1000列の上限に数えられない</td>
+<td>❌</td>
+<td>数えられる</td>
+</tr>
+<tr>
+<td>読取り専用表はDROPできない</td>
+<td>❌</td>
+<td>できる</td>
+</tr>
+<tr>
+<td>TRUNCATEはロールバックできる</td>
+<td>❌</td>
+<td>DDL</td>
+</tr>
+<tr>
+<td>TRUNCATEした表はごみ箱から戻せる</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>TRUNCATEで索引も切り捨てられる</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>DROP TABLEした表はFLASHBACKで戻せる</td>
+<td>✅</td>
+<td>PURGEしていなければ</td>
+</tr>
+<tr>
+<td>CTASでNOT NULL制約は引き継がれる</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>CTASで主キー制約は引き継がれる</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>GTTの表定義はセッション終了で消える</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>GTTのデータは他セッションから見えない</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>外部表にDMLを実行できる</td>
+<td>❌</td>
+<td>SELECTのみ</td>
+</tr>
+<tr>
+<td>ORACLE_LOADERでアンロードできる</td>
+<td>❌</td>
+<td>ORACLE_DATAPUMP</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="フッター" >
+        
+          
+          <a href="../ch11/" class="md-footer__link md-footer__link--prev" aria-label="前: 第11章 索引・シーケンス・シノニム">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                前
+              </span>
+              <div class="md-ellipsis">
+                第11章 索引・シーケンス・シノニム
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../ch13/" class="md-footer__link md-footer__link--next" aria-label="次: 第13章 ビュー">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                次
+              </span>
+              <div class="md-ellipsis">
+                第13章 ビュー
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.indexes", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy", "content.tabs.link"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.525ec568.min.js"></script>
+      
+    
+  </body>
+</html>

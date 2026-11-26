@@ -1,0 +1,1792 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="ORACLE MASTER Silver SQL（1Z0-071）の問題を「判定基準」で解くための論点別テキスト">
+      
+      
+      
+        <link rel="canonical" href="https://shoushinei.github.io/Oracle-Database-SQL/ch02/">
+      
+      
+        <link rel="prev" href="../ch01/">
+      
+      
+        <link rel="next" href="../ch03/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+    
+    
+      
+        <title>第2章 SELECTの基礎とデータの扱い - Silver SQL 論点潰しテキスト</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.8c3ca2c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2-select" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href=".." title="Silver SQL 論点潰しテキスト" class="md-header__button md-logo" aria-label="Silver SQL 論点潰しテキスト" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Silver SQL 論点潰しテキスト
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第2章 SELECTの基礎とデータの扱い
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="deep-orange"  aria-label="ダークモードに切り替え"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切り替え" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="deep-orange"  aria-label="ライトモードに切り替え"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切り替え" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/shoushinei/Oracle-Database-SQL" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    shoushinei/Oracle-Database-SQL
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Silver SQL 論点潰しテキスト" class="md-nav__button md-logo" aria-label="Silver SQL 論点潰しテキスト" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Silver SQL 論点潰しテキスト
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/shoushinei/Oracle-Database-SQL" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    shoushinei/Oracle-Database-SQL
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howto/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    問題タイプ別の解き方
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第1章 RDBとOracleの基礎
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    第2章 SELECTの基礎とデータの扱い
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    第2章 SELECTの基礎とデータの扱い
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#select-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-1 SELECT文の基本構文と句の順序
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2-1 SELECT文の基本構文と句の順序">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      内部の処理順（＝別名が使える場所の根拠）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      * と他の列の併用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alias" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-2 列別名
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2-2 列別名">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ok-ng" class="md-nav__link">
+    <span class="md-ellipsis">
+      OK / NG例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      別名を使える句・使えない句
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datatypes" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-3 データ型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#number-ps" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-4 NUMBER(p,s) への格納
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#describe" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-5 DESCRIBE コマンド
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dual" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-6 DUAL表
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arithmetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-7 算術演算子と優先順位
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#literal" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-8 文字リテラルと連結演算子
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q-quote" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-9 代替引用符（q演算子）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#null" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-10 NULLの性質
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distinct" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-11 DISTINCT
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz" class="md-nav__link">
+    <span class="md-ellipsis">
+      ○×クイック判定
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第3章 検索条件とソート・置換変数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第4章 単一行関数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第5章 変換関数・NULL関数・条件式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第6章 集計関数とGROUP BY
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第7章 結合
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch08/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第8章 副問合せ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch09/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第9章 集合演算
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch10/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第10章 DMLとトランザクション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch11/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第11章 索引・シーケンス・シノニム
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch12/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第12章 DDLによる表の管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch13/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第13章 ビュー
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch14/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第14章 ユーザー・権限・ロール
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch15/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第15章 データディクショナリ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch16/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第16章 タイムゾーンと期間
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    付録
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            付録
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix-errors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ORAエラー逆引き
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix-checklist/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    直前チェックリスト
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#select-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-1 SELECT文の基本構文と句の順序
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2-1 SELECT文の基本構文と句の順序">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      内部の処理順（＝別名が使える場所の根拠）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      * と他の列の併用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alias" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-2 列別名
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2-2 列別名">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ok-ng" class="md-nav__link">
+    <span class="md-ellipsis">
+      OK / NG例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      別名を使える句・使えない句
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datatypes" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-3 データ型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#number-ps" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-4 NUMBER(p,s) への格納
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#describe" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-5 DESCRIBE コマンド
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dual" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-6 DUAL表
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arithmetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-7 算術演算子と優先順位
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#literal" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-8 文字リテラルと連結演算子
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q-quote" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-9 代替引用符（q演算子）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#null" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-10 NULLの性質
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distinct" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-11 DISTINCT
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz" class="md-nav__link">
+    <span class="md-ellipsis">
+      ○×クイック判定
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="2-select">第2章 SELECTの基礎とデータの扱い<a class="headerlink" href="#2-select" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">この章で問われる形</p>
+<ul>
+<li>「<strong>正常に実行される</strong>問合せはどれですか」（列別名・DISTINCT・<code>*</code> の書き方）</li>
+<li>「列別名について正しい説明はどれですか」</li>
+<li>「NUMBER(p,s)の列に値を挿入します。正しい説明はどれですか」</li>
+<li>「DESCRIBEコマンド／DUAL表について正しい記述はどれですか」</li>
+<li>「算術演算子の優先順位について正しい記述はどれですか」</li>
+</ul>
+</div>
+<hr />
+<h2 id="select-syntax">2-1 SELECT文の基本構文と句の順序<a class="headerlink" href="#select-syntax" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li>句は必ずこの <strong>記述順</strong>：
+   <code>SELECT</code> → <code>FROM</code> → <code>WHERE</code> → <code>GROUP BY</code> → <code>HAVING</code> → <code>ORDER BY</code> →（<code>OFFSET</code>/<code>FETCH</code>）</li>
+<li><code>SELECT</code> と <code>FROM</code> は必須（Oracle 19c）。表がなければ <code>FROM dual</code></li>
+<li>キーワード・表名・列名は大文字小文字を区別しない（二重引用符で囲んだ識別子を除く）</li>
+<li>文は複数行に分けてよい。ただし <strong>キーワードを途中で分割・省略はできない</strong></li>
+</ol>
+</div>
+<h3 id="_1">内部の処理順（＝別名が使える場所の根拠）<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>FROM → WHERE → GROUP BY → HAVING → SELECT（ここで列別名が決まる） → ORDER BY
+</code></pre></div>
+<p><code>SELECT</code> 句より <strong>後</strong> に処理される <code>ORDER BY</code> だけが列別名を使えます。→ <a href="#alias">列別名</a></p>
+<div class="admonition note">
+<p class="admonition-title">細かい仕様</p>
+<p>Oracleは <code>HAVING</code> を <code>GROUP BY</code> より前に書いても受け付けます。ただし試験では上の順序を正として判断してください。</p>
+</div>
+<h3 id="_2"><code>*</code> と他の列の併用<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>SQL</th>
+<th>判定</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SELECT * FROM employees;</code></td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td><code>SELECT *, salary*12 FROM employees;</code></td>
+<td>❌</td>
+<td><code>*</code> 単独の後に他の列は書けない</td>
+</tr>
+<tr>
+<td><code>SELECT salary, * FROM employees;</code></td>
+<td>❌</td>
+<td>同上</td>
+</tr>
+<tr>
+<td><code>SELECT e.*, salary*12 FROM employees e;</code></td>
+<td>✅</td>
+<td><code>表名.*</code>／<code>別名.*</code> なら他の列と併用可</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="alias">2-2 列別名<a class="headerlink" href="#alias" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準：書き方</strong></p>
+<table>
+<thead>
+<tr>
+<th>書き方</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>式 別名</code></td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>式 AS 別名</code></td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>式 "別名"</code></td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>式 AS "別名"</code></td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>式 '別名'</code>（<strong>単一引用符</strong>）</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+<p><strong>判定基準：二重引用符なしで書ける別名の条件</strong>（1つでも外れたら <code>"..."</code> が必要）</p>
+<ol>
+<li>先頭が <strong>英字</strong>（数字・記号で始まらない）</li>
+<li>使える文字は <strong>英数字・<code>_</code>・<code>$</code>・<code>#</code></strong> だけ（<code>-</code> や空白は不可）</li>
+<li><strong>予約語ではない</strong>（<code>DATE</code> <code>SELECT</code> <code>FROM</code> <code>ORDER</code> <code>NUMBER</code> <code>TABLE</code> など）</li>
+<li>結果の列見出しは <strong>大文字</strong> に変換される（大小を保ちたいなら <code>"..."</code>）</li>
+</ol>
+</div>
+<h3 id="ok-ng">OK / NG例<a class="headerlink" href="#ok-ng" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">employee_id</span><span class="w"> </span><span class="n">EMP_ID</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">            </span><span class="c1">-- ✅ 英数字と _</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">employee_id</span><span class="w"> </span><span class="n">EMP$ID</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">            </span><span class="c1">-- ✅ $ も可</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">employee_id</span><span class="w"> </span><span class="ss">"EMP-ID"</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">          </span><span class="c1">-- ✅ 記号は "..." で囲む</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">salary</span><span class="o">*</span><span class="mi">12</span><span class="w"> </span><span class="ss">"Annual Salary"</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">     </span><span class="c1">-- ✅ 空白は "..." で囲む</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">hire_date</span><span class="w"> </span><span class="ss">"DATE"</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">              </span><span class="c1">-- ✅ 予約語は "..." で囲む</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">employee_id</span><span class="w"> </span><span class="n">EMP</span><span class="o">-</span><span class="n">ID</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">            </span><span class="c1">-- ❌ - は使えない</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">employee_id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">EMP</span><span class="o">-</span><span class="n">ID</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">         </span><span class="c1">-- ❌ AS を付けても同じ</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">hire_date</span><span class="w"> </span><span class="nb">DATE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">                </span><span class="c1">-- ❌ DATE は予約語</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">hire_date</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">DATE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">             </span><span class="c1">-- ❌ AS を付けても予約語は不可</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">employee_id</span><span class="w"> </span><span class="s1">'EMP_ID'</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">          </span><span class="c1">-- ❌ 単一引用符は文字リテラル用</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">salary</span><span class="o">*</span><span class="mi">12</span><span class="w"> </span><span class="n">Annual</span><span class="w"> </span><span class="n">Salary</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">       </span><span class="c1">-- ❌ 空白を含むなら "..." が必要</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">salary</span><span class="o">*</span><span class="mi">12</span><span class="w"> </span><span class="mi">1</span><span class="k">year</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">               </span><span class="c1">-- ❌ 数字で始まる</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">選択肢の見方</p>
+<p>「正常に実行される問合せ」で別名が複数ある選択肢は、<strong>すべての別名</strong> が条件を満たすか確認します。
+1つでも <code>'...'</code>、<code>-</code>、空白、予約語（引用符なし）があれば ❌ です。</p>
+</div>
+<h3 id="_3">別名を使える句・使えない句<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>句</th>
+<th>列別名</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ORDER BY</code></td>
+<td>✅</td>
+<td>SELECTより後に処理される</td>
+</tr>
+<tr>
+<td><code>WHERE</code></td>
+<td>❌（ORA-00904）</td>
+<td>SELECTより前に処理される</td>
+</tr>
+<tr>
+<td><code>GROUP BY</code></td>
+<td>❌</td>
+<td>同上</td>
+</tr>
+<tr>
+<td><code>HAVING</code></td>
+<td>❌</td>
+<td>同上</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">salary</span><span class="o">*</span><span class="mi">12</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">annual</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">annual</span><span class="p">;</span><span class="w">         </span><span class="c1">-- ✅</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">salary</span><span class="o">*</span><span class="mi">12</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">annual</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">annual</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100000</span><span class="p">;</span><span class="w">   </span><span class="c1">-- ❌</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">salary</span><span class="o">*</span><span class="mi">12</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="ss">"Annual"</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="ss">"Annual"</span><span class="p">;</span><span class="w">     </span><span class="c1">-- ✅ 引用符付き別名は同じ表記で</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">salary</span><span class="o">*</span><span class="mi">12</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="ss">"Annual"</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">annual</span><span class="p">;</span><span class="w">       </span><span class="c1">-- ❌ 大小が違う（ANNUALを探してしまう）</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">ひっかけ</p>
+<ul>
+<li>「別名を付けたら ORDER BY では <strong>必ず</strong> 別名で指定する」→ ❌（列名・式・列位置でも指定できる）</li>
+<li>「別名には #、$ 以外の記号は <strong>どのような場合も</strong> 使えない」→ ❌（<code>"..."</code> で囲めば使える）</li>
+<li>「予約語を別名にするときは <strong>単一引用符</strong> で囲む」→ ❌（二重引用符）</li>
+</ul>
+</div>
+<hr />
+<h2 id="datatypes">2-3 データ型<a class="headerlink" href="#datatypes" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<table>
+<thead>
+<tr>
+<th>型</th>
+<th>ルール</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>VARCHAR2(n)</code></td>
+<td>可変長文字。<strong>サイズ指定が必須</strong>（<code>VARCHAR2</code> だけは ❌）</td>
+</tr>
+<tr>
+<td><code>CHAR(n)</code></td>
+<td>固定長文字。サイズ省略時は <strong>1</strong>。足りない分は空白で埋める</td>
+</tr>
+<tr>
+<td><code>NUMBER(p,s)</code></td>
+<td>数値。p=精度(1〜38)、s=位取り(-84〜127)。省略すると最大精度</td>
+</tr>
+<tr>
+<td><code>DATE</code></td>
+<td>年・月・日・時・分・秒（<strong>小数秒なし</strong>・タイムゾーンなし）</td>
+</tr>
+<tr>
+<td><code>TIMESTAMP(n)</code></td>
+<td>DATE＋<strong>小数秒</strong>（n=0〜9、省略時6）</td>
+</tr>
+<tr>
+<td><code>CLOB</code> / <code>BLOB</code></td>
+<td>大きな文字／バイナリ</td>
+</tr>
+<tr>
+<td><code>LONG</code></td>
+<td>旧式の大きな文字。<strong>1表に1列まで</strong>、制約・索引・GROUP BY・ORDER BY・CTASでのコピー不可</td>
+</tr>
+<tr>
+<td><code>RAW(n)</code></td>
+<td>バイナリ（サイズ必須）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="n">VARCHAR2</span><span class="p">);</span><span class="w">          </span><span class="c1">-- ❌ サイズがない</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="n">VARCHAR2</span><span class="p">(</span><span class="mi">10</span><span class="p">));</span><span class="w">      </span><span class="c1">-- ✅</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="nb">CHAR</span><span class="p">);</span><span class="w">              </span><span class="c1">-- ✅ CHAR(1) になる</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="nb">NUMBER</span><span class="p">);</span><span class="w">            </span><span class="c1">-- ✅</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="n">LONG</span><span class="p">,</span><span class="w"> </span><span class="n">c2</span><span class="w"> </span><span class="n">LONG</span><span class="p">);</span><span class="w">     </span><span class="c1">-- ❌ LONG は1表に1列まで</span>
+</code></pre></div>
+<p>日時の型の詳細は → <a href="../ch16/#datetime-types">16章 日時データ型</a></p>
+<hr />
+<h2 id="number-ps">2-4 NUMBER(p,s) への格納<a class="headerlink" href="#number-ps" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li><strong>整数部に使える桁数 ＝ p − s</strong>。整数部がこれを超えると <strong>エラー</strong>（ORA-01438）</li>
+<li>小数部が s 桁を超える分は <strong>四捨五入して格納</strong>（エラーにならない）</li>
+<li>四捨五入した <strong>結果</strong> が整数部の桁数を超えるならエラー</li>
+<li><code>NUMBER(p)</code> は <code>NUMBER(p,0)</code>：小数は四捨五入して整数で格納</li>
+</ol>
+</div>
+<p><code>NUMBER(5,2)</code> の場合（整数部3桁・小数部2桁 → 最大 999.99）</p>
+<table>
+<thead>
+<tr>
+<th>挿入する値</th>
+<th>結果</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>123.45</code></td>
+<td>✅ 123.45</td>
+<td></td>
+</tr>
+<tr>
+<td><code>123.456</code></td>
+<td>✅ <strong>123.46</strong></td>
+<td>小数3桁目を四捨五入</td>
+</tr>
+<tr>
+<td><code>12.3456</code></td>
+<td>✅ <strong>12.35</strong></td>
+<td>小数2桁に四捨五入</td>
+</tr>
+<tr>
+<td><code>1.23456</code></td>
+<td>✅ <strong>1.23</strong></td>
+<td>小数2桁に四捨五入（1.2346 ではない）</td>
+</tr>
+<tr>
+<td><code>12345</code></td>
+<td>❌</td>
+<td>整数部5桁 &gt; 3桁</td>
+</tr>
+<tr>
+<td><code>1234.5</code></td>
+<td>❌</td>
+<td>整数部4桁 &gt; 3桁</td>
+</tr>
+<tr>
+<td><code>999.995</code></td>
+<td>❌</td>
+<td>四捨五入すると 1000.00 で整数部4桁</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">ひっかけ</p>
+<p>「小数部の桁数が多いとエラーになる」→ ❌（四捨五入して格納される。エラーになるのは <strong>整数部</strong> があふれたとき）</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">負の位取り</p>
+<p><code>NUMBER(5,-2)</code> は百の位に丸めて格納します（<code>12345</code> → <code>12300</code>）。</p>
+</div>
+<hr />
+<h2 id="describe">2-5 DESCRIBE コマンド<a class="headerlink" href="#describe" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li><code>DESC[RIBE] [スキーマ.]オブジェクト名</code> で <strong>構造</strong> を表示する</li>
+<li>表示されるのは <strong>列名・NULL可否（NOT NULL）・データ型</strong> の3つだけ</li>
+<li>対象：<strong>表・ビュー・シノニム</strong>、ファンクション／プロシージャ／パッケージ</li>
+<li>SQL*Plusコマンドだが <strong>SQL Developerでも使える</strong>。<code>;</code> は不要</li>
+<li>表示されないもの：<strong>索引</strong>、NOT NULL以外の制約、デフォルト値、データ</li>
+</ol>
+</div>
+<table>
+<thead>
+<tr>
+<th>選択肢の言い回し</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>各列のデータ型を確認できる</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>SQL*PlusおよびSQL Developerから使用できる</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>索引が付いている列を確認できる</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>ビューの構造は表示できない</td>
+<td>❌（表示できる）</td>
+</tr>
+<tr>
+<td>主キー列を確認できる</td>
+<td>❌（NOT NULLとしか出ない）</td>
+</tr>
+<tr>
+<td>列のデフォルト値を確認できる</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+<p>索引や制約は → <a href="../ch15/#main-views">15章 データディクショナリ</a>（<code>USER_INDEXES</code>、<code>USER_CONSTRAINTS</code>）</p>
+<hr />
+<h2 id="dual">2-6 DUAL表<a class="headerlink" href="#dual" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li>所有者は <strong>SYS</strong>。<strong>すべてのユーザーが</strong> 特別な権限なしにアクセスできる</li>
+<li><strong>1列（DUMMY）・1行</strong>（値は <code>'X'</code>）</li>
+<li>表に依存しない式・関数の結果を <strong>1行だけ</strong> 得たいときに使う</li>
+</ol>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">SYSDATE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dual</span><span class="p">;</span><span class="w">           </span><span class="c1">-- 1行返る</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dual</span><span class="p">;</span><span class="w">            </span><span class="c1">-- 1行返る</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">SYSDATE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">      </span><span class="c1">-- ⚠️ エラーではない。employeesの行数分、同じ値が返る</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">ひっかけ</p>
+<ul>
+<li>「DUAL表はDBAロールを持つユーザーのみアクセスできる」→ ❌</li>
+<li>「DUAL表のSELECT権限を付与されている必要がある」→ ❌（全ユーザーが使える）</li>
+<li>「1列持ち、<strong>0行</strong> のデータが格納されている」→ ❌（1行）</li>
+<li>「<code>SELECT SYSDATE FROM employees</code> はエラーになる」→ ❌（行数分返る）</li>
+</ul>
+</div>
+<hr />
+<h2 id="arithmetic">2-7 算術演算子と優先順位<a class="headerlink" href="#arithmetic" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li>算術演算子は <code>+</code> <code>-</code> <code>*</code> <code>/</code> の4つ</li>
+<li><strong><code>*</code> <code>/</code> が <code>+</code> <code>-</code> より先</strong></li>
+<li>優先度が同じなら <strong>左から右</strong></li>
+<li>優先順位を変えられるのは <strong>丸かっこ <code>( )</code> だけ</strong>（<code>[ ]</code> <code>{ }</code> は不可。<code>||</code> は連結演算子）</li>
+<li><strong>NULLを含む算術式の結果はNULL</strong>（NULLは優先順位には影響しない）</li>
+<li>ゼロ除算はエラー（ORA-01476）</li>
+</ol>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">100</span><span class="w">   </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">   </span><span class="c1">-- (12*salary)+100</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">salary</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">   </span><span class="c1">-- 先に足し算</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">SELECT</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">10</span><span class="w">       </span><span class="k">FROM</span><span class="w"> </span><span class="n">dual</span><span class="p">;</span><span class="w">        </span><span class="c1">-- 左から: (100-20)-10 = 70</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="k">SELECT</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w">        </span><span class="k">FROM</span><span class="w"> </span><span class="n">dual</span><span class="p">;</span><span class="w">        </span><span class="c1">-- 左から: (100/10)*2 = 20</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">NULL</span><span class="w">       </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">   </span><span class="c1">-- すべて NULL</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>選択肢の言い回し</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>( )</code>、<code>[ ]</code>、<code>{ }</code> で優先順位を変更できる</td>
+<td>❌（<code>( )</code>のみ）</td>
+</tr>
+<tr>
+<td>NULLは式内の算術演算子の優先順位に影響を与える</td>
+<td>❌（結果がNULLになるだけ）</td>
+</tr>
+<tr>
+<td><code>+</code> と <code>-</code> のみの式では <code>+</code> が優先される</td>
+<td>❌（同順位・左から右）</td>
+</tr>
+<tr>
+<td>優先度が等しい演算子は、カッコがない場合左から右に評価される</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<p>日付に対する算術は → <a href="../ch04/#date-arithmetic">4章 日付演算</a></p>
+<hr />
+<h2 id="literal">2-8 文字リテラルと連結演算子<a class="headerlink" href="#literal" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li><strong>文字リテラル・日付リテラルは単一引用符 <code>'...'</code></strong>。数値リテラルは引用符なし</li>
+<li>文字リテラルの中身は <strong>大文字小文字を区別</strong> する（<code>'King'</code> ≠ <code>'KING'</code>）</li>
+<li>文字列中の <code>'</code> は <strong><code>''</code>（2つ重ね）</strong> で表す</li>
+<li><strong>二重引用符 <code>"..."</code> は識別子（列名・別名）用</strong>。文字リテラルには使えない</li>
+<li>連結演算子は <code>||</code>。数値・日付も文字に変換されて連結される</li>
+<li><strong><code>||</code> でNULLを連結しても無視される</strong>（結果はNULLにならない）</li>
+</ol>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">last_name</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">' is '</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">job_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">     </span><span class="c1">-- ✅</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="s1">'It''s '</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">last_name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">             </span><span class="c1">-- ✅ It's King</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">last_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">"King"</span><span class="p">;</span><span class="w">        </span><span class="c1">-- ❌ "King" は列名扱い（ORA-00904）</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">SELECT</span><span class="w"> </span><span class="s1">'A'</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">'B'</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dual</span><span class="p">;</span><span class="w">                      </span><span class="c1">-- ✅ 'AB'（NULLは無視）</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">SELECT</span><span class="w"> </span><span class="s1">'A'</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">'B'</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dual</span><span class="p">;</span><span class="w">                               </span><span class="c1">-- ❌ + は算術演算子（数値変換に失敗）</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">ひっかけ</p>
+<ul>
+<li>算術式のNULLは結果をNULLにするが、<strong>連結のNULLは無視される</strong>。この違いがよく狙われます。</li>
+<li>Oracleでは <strong>空文字 <code>''</code> はNULLとして扱われる</strong>。</li>
+</ul>
+</div>
+<hr />
+<h2 id="q-quote">2-9 代替引用符（q演算子）<a class="headerlink" href="#q-quote" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li>形は <code>q'&lt;区切り文字&gt;文字列&lt;区切り文字&gt;'</code>（<code>q</code> と <code>'</code> の間に空白を入れない。<code>Q</code> でも可）</li>
+<li>区切り文字が括弧なら <strong>対応する閉じ括弧</strong>：<code>[ ]</code> <code>{ }</code> <code>( )</code> <code>&lt; &gt;</code></li>
+<li>括弧以外の1文字（<code>!</code> <code>#</code> <code>|</code> など）なら <strong>同じ文字</strong> で閉じる</li>
+<li>中の <code>'</code> はそのまま書ける（重ねなくてよい）</li>
+</ol>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">q</span><span class="s1">'[It'</span><span class="n">s</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">pen</span><span class="p">]</span><span class="s1">' FROM dual;        -- ✅</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="s1">SELECT q'</span><span class="err">{</span><span class="n">It</span><span class="s1">'s a pen}'</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dual</span><span class="p">;</span><span class="w">        </span><span class="c1">-- ✅</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">q</span><span class="s1">'!It'</span><span class="n">s</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">pen</span><span class="o">!</span><span class="s1">' FROM dual;        -- ✅</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="s1">SELECT q'</span><span class="p">[</span><span class="n">It</span><span class="s1">'s a pen'</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dual</span><span class="p">;</span><span class="w">         </span><span class="c1">-- ❌ 閉じる ] がない</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">q</span><span class="s1">'[It'</span><span class="n">s</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">pen</span><span class="err">}</span><span class="s1">' FROM dual;        -- ❌ [ に対して } では閉じられない</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="s1">SELECT q '</span><span class="p">[</span><span class="n">It</span><span class="s1">'s a pen]'</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dual</span><span class="p">;</span><span class="w">       </span><span class="c1">-- ❌ q と ' の間に空白</span>
+</code></pre></div>
+<hr />
+<h2 id="null">2-10 NULLの性質<a class="headerlink" href="#null" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li>NULLは「値がない・不明」。<strong>0でも空白でもない</strong>（ただし <code>''</code> はNULLとして扱われる）</li>
+<li>列にNULLが入るのは：INSERTで列を省略（DEFAULTなし）、<code>NULL</code> を明示、<code>''</code> を指定</li>
+<li><strong>算術式</strong> → 結果はNULL</li>
+<li><strong>連結</strong> → 無視される</li>
+<li><strong>比較</strong>（<code>=</code> <code>&lt;&gt;</code> <code>&gt;</code> など）→ 結果は「不明（UNKNOWN）」→ <strong>その行は返らない</strong>（エラーではない）</li>
+<li>NULLを探すのは <strong><code>IS NULL</code> / <code>IS NOT NULL</code></strong> だけ</li>
+<li><strong>ソート</strong> → 最も大きい値として扱われる（昇順で最後）</li>
+<li><strong>集計関数</strong> → <code>COUNT(*)</code> 以外はNULLを無視する</li>
+</ol>
+</div>
+<p>詳しくは
+→ <a href="../ch03/#null-condition">3章 NULL条件</a> /
+<a href="../ch03/#nulls-order">3章 NULLのソート位置</a> /
+<a href="../ch05/#nvl">5章 NULL関数</a> /
+<a href="../ch06/#agg-null">6章 集計とNULL</a></p>
+<hr />
+<h2 id="distinct">2-11 DISTINCT<a class="headerlink" href="#distinct" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li><code>DISTINCT</code> は <strong><code>SELECT</code> の直後に1回だけ</strong> 書ける</li>
+<li><code>DISTINCT</code> は <strong>SELECTリスト全体の組合せ</strong> に対して重複を除く（特定の列だけには効かない）</li>
+<li>かっこ <code>DISTINCT(列)</code> と書いても、効果は <strong>全体の組合せ</strong> に対して</li>
+<li>NULLどうしは重複とみなされ、1行にまとめられる</li>
+<li><code>DISTINCT</code> を使うと、<code>ORDER BY</code> にはSELECTリストにある列・式しか書けない（ORA-01791）</li>
+</ol>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">department_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">                         </span><span class="c1">-- ✅</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">department_id</span><span class="p">,</span><span class="w"> </span><span class="n">job_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">                 </span><span class="c1">-- ✅ 組合せの重複を除く</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">department_id</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">' : '</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">job_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">      </span><span class="c1">-- ✅ 1つの式として重複除去</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">department_id</span><span class="p">,</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">job_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">                 </span><span class="c1">-- ❌ SELECT直後ではない</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">department_id</span><span class="p">,</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">job_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">        </span><span class="c1">-- ❌ 2回は書けない</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">department_id</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">job_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">      </span><span class="c1">-- ❌ 式の途中に書けない</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="p">(</span><span class="n">department_id</span><span class="p">),</span><span class="w"> </span><span class="n">job_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">                </span><span class="c1">-- ⚠️ 実行できるが、組合せ全体で重複除去</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">job_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">salary</span><span class="p">;</span><span class="w">                </span><span class="c1">-- ❌ SELECTにない列でソート不可</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">「部門ごとに固有のジョブを表示したい」と聞かれたら</p>
+<p>「部門×ジョブの組合せの重複を除く」ことなので、<code>SELECT DISTINCT department_id, job_id</code> の形、
+または両者を連結した1つの式を <code>DISTINCT</code> する形が該当します。</p>
+</div>
+<hr />
+<h2 id="quiz">○×クイック判定<a class="headerlink" href="#quiz" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>記述</th>
+<th>判定</th>
+<th>ひとこと</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>列別名には単一引用符を使える</td>
+<td>❌</td>
+<td>二重引用符</td>
+</tr>
+<tr>
+<td>列別名に予約語を使うには二重引用符で囲む</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>列別名はWHERE句・GROUP BY句・HAVING句では使えない</td>
+<td>✅</td>
+<td>ORDER BYのみ可</td>
+</tr>
+<tr>
+<td>列別名を付けたらORDER BYでは別名で指定しなければならない</td>
+<td>❌</td>
+<td>列名・位置でも可</td>
+</tr>
+<tr>
+<td>列別名は二重引用符なしでも大文字小文字が保持される</td>
+<td>❌</td>
+<td>大文字になる</td>
+</tr>
+<tr>
+<td>VARCHAR2はサイズを省略できる</td>
+<td>❌</td>
+<td>必須</td>
+</tr>
+<tr>
+<td>NUMBER(5,2)に 1.23456 を入れると 1.2346 になる</td>
+<td>❌</td>
+<td>1.23</td>
+</tr>
+<tr>
+<td>NUMBER(5,2)に 12345 を入れるとエラー</td>
+<td>✅</td>
+<td>整数部あふれ</td>
+</tr>
+<tr>
+<td>DESCRIBEで索引を確認できる</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>DESCRIBEでビューの構造を表示できる</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>DUALは1列1行</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>DUALはDBAのみアクセスできる</td>
+<td>❌</td>
+<td>全ユーザー</td>
+</tr>
+<tr>
+<td><code>( )</code> <code>[ ]</code> <code>{ }</code> で演算子の優先順位を変更できる</td>
+<td>❌</td>
+<td><code>( )</code>のみ</td>
+</tr>
+<tr>
+<td>同じ優先度の演算子は左から右に評価される</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>NULLを含む算術式の結果はNULL</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>NULLを <code>||</code> で連結すると結果はNULL</td>
+<td>❌</td>
+<td>NULLは無視</td>
+</tr>
+<tr>
+<td><code>SELECT a, DISTINCT b</code> は実行できる</td>
+<td>❌</td>
+<td>SELECT直後のみ</td>
+</tr>
+<tr>
+<td>DISTINCTはSELECTリストの最初の列にだけ効く</td>
+<td>❌</td>
+<td>組合せ全体</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="フッター" >
+        
+          
+          <a href="../ch01/" class="md-footer__link md-footer__link--prev" aria-label="前: 第1章 RDBとOracleの基礎">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                前
+              </span>
+              <div class="md-ellipsis">
+                第1章 RDBとOracleの基礎
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../ch03/" class="md-footer__link md-footer__link--next" aria-label="次: 第3章 検索条件とソート・置換変数">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                次
+              </span>
+              <div class="md-ellipsis">
+                第3章 検索条件とソート・置換変数
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.indexes", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy", "content.tabs.link"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.525ec568.min.js"></script>
+      
+    
+  </body>
+</html>

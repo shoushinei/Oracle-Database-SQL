@@ -1,0 +1,1515 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="ORACLE MASTER Silver SQL（1Z0-071）の問題を「判定基準」で解くための論点別テキスト">
+      
+      
+      
+        <link rel="canonical" href="https://shoushinei.github.io/Oracle-Database-SQL/ch06/">
+      
+      
+        <link rel="prev" href="../ch05/">
+      
+      
+        <link rel="next" href="../ch07/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+    
+    
+      
+        <title>第6章 集計関数とGROUP BY - Silver SQL 論点潰しテキスト</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.8c3ca2c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#6-group-by" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href=".." title="Silver SQL 論点潰しテキスト" class="md-header__button md-logo" aria-label="Silver SQL 論点潰しテキスト" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Silver SQL 論点潰しテキスト
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第6章 集計関数とGROUP BY
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="deep-orange"  aria-label="ダークモードに切り替え"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切り替え" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="deep-orange"  aria-label="ライトモードに切り替え"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切り替え" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/shoushinei/Oracle-Database-SQL" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    shoushinei/Oracle-Database-SQL
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Silver SQL 論点潰しテキスト" class="md-nav__button md-logo" aria-label="Silver SQL 論点潰しテキスト" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Silver SQL 論点潰しテキスト
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/shoushinei/Oracle-Database-SQL" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    shoushinei/Oracle-Database-SQL
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howto/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    問題タイプ別の解き方
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第1章 RDBとOracleの基礎
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第2章 SELECTの基礎とデータの扱い
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第3章 検索条件とソート・置換変数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第4章 単一行関数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第5章 変換関数・NULL関数・条件式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    第6章 集計関数とGROUP BY
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    第6章 集計関数とGROUP BY
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#aggregate" class="md-nav__link">
+    <span class="md-ellipsis">
+      6-1 集計関数の種類と引数の型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#count" class="md-nav__link">
+    <span class="md-ellipsis">
+      6-2 COUNTの3形態
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6-2 COUNTの3形態">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例で確認
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agg-null" class="md-nav__link">
+    <span class="md-ellipsis">
+      6-3 集計関数とNULL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group-by" class="md-nav__link">
+    <span class="md-ellipsis">
+      6-4 GROUP BY のルール
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#having" class="md-nav__link">
+    <span class="md-ellipsis">
+      6-5 WHERE と HAVING
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nesting" class="md-nav__link">
+    <span class="md-ellipsis">
+      6-6 集計関数のネスト
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rows" class="md-nav__link">
+    <span class="md-ellipsis">
+      6-7 返る行数
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz" class="md-nav__link">
+    <span class="md-ellipsis">
+      ○×クイック判定
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第7章 結合
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch08/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第8章 副問合せ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch09/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第9章 集合演算
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch10/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第10章 DMLとトランザクション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch11/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第11章 索引・シーケンス・シノニム
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch12/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第12章 DDLによる表の管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch13/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第13章 ビュー
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch14/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第14章 ユーザー・権限・ロール
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch15/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第15章 データディクショナリ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch16/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第16章 タイムゾーンと期間
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    付録
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            付録
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix-errors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ORAエラー逆引き
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix-checklist/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    直前チェックリスト
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#aggregate" class="md-nav__link">
+    <span class="md-ellipsis">
+      6-1 集計関数の種類と引数の型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#count" class="md-nav__link">
+    <span class="md-ellipsis">
+      6-2 COUNTの3形態
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6-2 COUNTの3形態">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例で確認
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agg-null" class="md-nav__link">
+    <span class="md-ellipsis">
+      6-3 集計関数とNULL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group-by" class="md-nav__link">
+    <span class="md-ellipsis">
+      6-4 GROUP BY のルール
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#having" class="md-nav__link">
+    <span class="md-ellipsis">
+      6-5 WHERE と HAVING
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nesting" class="md-nav__link">
+    <span class="md-ellipsis">
+      6-6 集計関数のネスト
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rows" class="md-nav__link">
+    <span class="md-ellipsis">
+      6-7 返る行数
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz" class="md-nav__link">
+    <span class="md-ellipsis">
+      ○×クイック判定
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="6-group-by">第6章 集計関数とGROUP BY<a class="headerlink" href="#6-group-by" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">この章で問われる形</p>
+<ul>
+<li>「<strong>正常に実行される</strong>問合せはどれですか」（GROUP BY と SELECT の整合、WHEREの集計関数）</li>
+<li>「<strong>実行してエラーにならない</strong>問合せはどれですか」（集計関数のネスト）</li>
+<li>「次の問合せで返される値について正しい説明はどれですか」（COUNTの違い）</li>
+<li>「次の2つの問合せについて正しい記述はどれですか」（GROUP BYの有無と行数）</li>
+</ul>
+</div>
+<hr />
+<h2 id="aggregate">6-1 集計関数の種類と引数の型<a class="headerlink" href="#aggregate" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<table>
+<thead>
+<tr>
+<th>関数</th>
+<th>使える型</th>
+<th>NULL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SUM(式)</code> / <code>AVG(式)</code></td>
+<td><strong>数値のみ</strong></td>
+<td>無視</td>
+</tr>
+<tr>
+<td><code>MAX(式)</code> / <code>MIN(式)</code></td>
+<td><strong>数値・文字・日付</strong></td>
+<td>無視</td>
+</tr>
+<tr>
+<td><code>COUNT(式)</code></td>
+<td>何でも</td>
+<td>無視</td>
+</tr>
+<tr>
+<td><code>COUNT(*)</code></td>
+<td>—</td>
+<td><strong>NULLの行も数える</strong></td>
+</tr>
+<tr>
+<td><code>STDDEV</code> / <code>VARIANCE</code></td>
+<td>数値のみ</td>
+<td>無視</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>集計関数は <strong>複数行をまとめて1つの値</strong> を返す（単一行関数との違い）</li>
+<li><code>DISTINCT</code> を引数の前に付けると、重複を除いてから集計する（<code>ALL</code> は既定）</li>
+</ul>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">hire_date</span><span class="p">),</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">last_name</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">   </span><span class="c1">-- ✅ 日付・文字もOK</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">hire_date</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">                   </span><span class="c1">-- ❌ SUMは数値のみ</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">last_name</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">                   </span><span class="c1">-- ❌ AVGは数値のみ</span>
+</code></pre></div>
+<hr />
+<h2 id="count">6-2 COUNTの3形態<a class="headerlink" href="#count" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<table>
+<thead>
+<tr>
+<th>書き方</th>
+<th>数えるもの</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>COUNT(*)</code></td>
+<td><strong>すべての行</strong>（NULLを含む行も、重複行も）</td>
+</tr>
+<tr>
+<td><code>COUNT(列)</code></td>
+<td>列が <strong>NULLでない</strong> 行</td>
+</tr>
+<tr>
+<td><code>COUNT(DISTINCT 列)</code></td>
+<td>列の <strong>NULLでない値の種類数</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>0件のときも <code>COUNT</code> は <strong>0</strong> を返す（NULLではない）</li>
+</ul>
+</div>
+<h3 id="_1">例で確認<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NAME</th>
+<th>TEAM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Ann</td>
+<td>X</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bob</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Cid</td>
+<td><em>(NULL)</em></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Dan</td>
+<td>X</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Eve</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Fay</td>
+<td>X</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>式</th>
+<th>結果</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>COUNT(*)</code></td>
+<td><strong>6</strong></td>
+<td>全行</td>
+</tr>
+<tr>
+<td><code>COUNT(name)</code></td>
+<td><strong>6</strong></td>
+<td>NULLなし</td>
+</tr>
+<tr>
+<td><code>COUNT(team)</code></td>
+<td><strong>5</strong></td>
+<td>NULLの1行を除く</td>
+</tr>
+<tr>
+<td><code>COUNT(DISTINCT team)</code></td>
+<td><strong>2</strong></td>
+<td>X と Y（NULLは種類に数えない）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="agg-null">6-3 集計関数とNULL<a class="headerlink" href="#agg-null" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li><code>COUNT(*)</code> 以外の集計関数は <strong>NULLを無視</strong> する</li>
+<li><strong>AVGの分母は「NULLでない行数」</strong></li>
+<li>NULLを0として扱いたいなら <code>NVL(列, 0)</code> で包んでから集計する</li>
+<li>対象行が0行のとき：<code>COUNT</code> → <strong>0</strong>、<code>SUM</code>・<code>AVG</code>・<code>MAX</code>・<code>MIN</code> → <strong>NULL</strong></li>
+</ol>
+</div>
+<p>commission_pct が <code>0.2, 0.4, NULL, NULL</code> の4行</p>
+<table>
+<thead>
+<tr>
+<th>式</th>
+<th>計算</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SUM(commission_pct)</code></td>
+<td>0.2+0.4</td>
+<td>0.6</td>
+</tr>
+<tr>
+<td><code>AVG(commission_pct)</code></td>
+<td>0.6 ÷ <strong>2</strong></td>
+<td>0.3</td>
+</tr>
+<tr>
+<td><code>AVG(NVL(commission_pct, 0))</code></td>
+<td>0.6 ÷ <strong>4</strong></td>
+<td>0.15</td>
+</tr>
+<tr>
+<td><code>COUNT(commission_pct)</code></td>
+<td></td>
+<td>2</td>
+</tr>
+<tr>
+<td><code>COUNT(*)</code></td>
+<td></td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="group-by">6-4 GROUP BY のルール<a class="headerlink" href="#group-by" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li><strong>SELECTリストにある「集計関数以外の列・式」は、すべて GROUP BY に書かれていなければならない</strong>（ORA-00979 / ORA-00937）</li>
+<li>逆に、GROUP BY の列を SELECT に書かなくてもよい</li>
+<li>GROUP BY に <strong>列別名は使えない</strong>（列名・式で書く）。数字を書いても <strong>列位置としては解釈されない</strong>（ORDER BYとの違い）</li>
+<li>GROUP BY に書けるのは列・式（集計関数は書けない）</li>
+<li>複数列を書くと、その <strong>組合せ</strong> ごとにグループ化される</li>
+</ol>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">department_id</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">department_id</span><span class="p">;</span><span class="w">               </span><span class="c1">-- ✅</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">department_id</span><span class="p">;</span><span class="w">                              </span><span class="c1">-- ✅ GROUP BY列はSELECTになくてよい</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">department_id</span><span class="p">,</span><span class="w"> </span><span class="n">job_id</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">department_id</span><span class="p">,</span><span class="w"> </span><span class="n">job_id</span><span class="p">;</span><span class="w">  </span><span class="c1">-- ✅</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">job_id</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">department_id</span><span class="p">;</span><span class="w">                      </span><span class="c1">-- ❌ job_id がGROUP BYにない</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">department_id</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">                                      </span><span class="c1">-- ❌ GROUP BYがない</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">department_id</span><span class="w"> </span><span class="n">dept</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">dept</span><span class="p">;</span><span class="w">                   </span><span class="c1">-- ❌ 別名は不可</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">SELECT と GROUP BY の照合手順</p>
+<ol>
+<li>SELECTリストから <strong>集計関数の中にない列</strong> を全部書き出す</li>
+<li>それが <strong>すべて GROUP BY にある</strong> か確認する</li>
+<li>1つでも漏れていたら ❌</li>
+</ol>
+</div>
+<hr />
+<h2 id="having">6-5 WHERE と HAVING<a class="headerlink" href="#having" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>WHERE</th>
+<th>HAVING</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>絞り込む対象</td>
+<td><strong>グループ化する前の行</strong></td>
+<td><strong>グループ化した後のグループ</strong></td>
+</tr>
+<tr>
+<td>集計関数</td>
+<td><strong>使えない</strong>（ORA-00934）</td>
+<td>使える</td>
+</tr>
+<tr>
+<td>書く位置</td>
+<td>FROMの後</td>
+<td>GROUP BYの後（※）</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>HAVING には <strong>集計関数</strong> または <strong>GROUP BY の列</strong> を書く</li>
+<li>HAVING の集計関数は <strong>SELECTリストになくてもよい</strong></li>
+<li>GROUP BY なしで HAVING を書くと、表全体を1グループとして扱う</li>
+</ol>
+<p>※ Oracleは HAVING を GROUP BY の前に書いても受け付けますが、試験では「GROUP BY → HAVING」を正として判断してください。</p>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">department_id</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="n">department_id</span><span class="p">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">commission_pct</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w">           </span><span class="c1">-- 行の条件はWHERE</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">department_id</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">HAVING</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="n">department_id</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">           </span><span class="c1">-- ✅ グループの条件はHAVING</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="n">department_id</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">commission_pct</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="n">department_id</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">4</span><span class="w">   </span><span class="c1">-- ❌ WHEREに集計関数</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">department_id</span><span class="p">;</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">department_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">department_id</span><span class="w"> </span><span class="k">HAVING</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">10000</span><span class="p">;</span><span class="w">    </span><span class="c1">-- ✅ MAXはSELECTになくてよい</span>
+</code></pre></div>
+<hr />
+<h2 id="nesting">6-6 集計関数のネスト<a class="headerlink" href="#nesting" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li>集計関数のネストは <strong>2レベルまで</strong>（3レベルは ❌）</li>
+<li>ネストするときは <strong>GROUP BY が必須</strong>（ORA-00978）</li>
+<li>ネストした集計関数と一緒に <strong>単独の列（GROUP BY列も含む）をSELECTに書けない</strong>（ORA-00937）</li>
+<li>結果は <strong>1行</strong>（内側の集計でグループごとの値を出し、外側でそれをまとめる）</li>
+</ol>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="k">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">))</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">department_id</span><span class="p">;</span><span class="w">               </span><span class="c1">-- ✅ 部門平均の最大値（1行）</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="k">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">))</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">                                      </span><span class="c1">-- ❌ GROUP BYがない</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">department_id</span><span class="p">,</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="k">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">))</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">department_id</span><span class="p">;</span><span class="w">  </span><span class="c1">-- ❌ 単独の列と併用</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="k">MIN</span><span class="p">(</span><span class="k">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">)))</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">department_id</span><span class="p">;</span><span class="w">          </span><span class="c1">-- ❌ 3レベル</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="k">MIN</span><span class="p">(</span><span class="n">salary</span><span class="p">))</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">                                      </span><span class="c1">-- ❌ GROUP BYがない</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">単一行関数のネストとは別ルール</p>
+<p>単一行関数は何重でもネストできます。「2レベルまで」は <strong>集計関数</strong> の制限です。
+集計関数の中に単一行関数を入れる（<code>AVG(NVL(commission_pct,0))</code>）のはネストのレベルに数えません。</p>
+</div>
+<hr />
+<h2 id="rows">6-7 返る行数<a class="headerlink" href="#rows" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<table>
+<thead>
+<tr>
+<th>問合せ</th>
+<th>返る行数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>集計関数あり・<strong>GROUP BYなし</strong></td>
+<td><strong>常に1行</strong>（0件の表でも1行）</td>
+</tr>
+<tr>
+<td>GROUP BY あり</td>
+<td><strong>グループ数</strong>（0件なら0行）</td>
+</tr>
+<tr>
+<td>集計関数のネスト（GROUP BY あり）</td>
+<td>1行</td>
+</tr>
+<tr>
+<td>GROUP BY なし ＋ HAVING で条件不成立</td>
+<td>0行</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">-- 文1：GROUP BYなし → 常に1行</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">salary</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">12</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1">-- 文2：GROUP BYあり → job_idの種類数だけ行が返る</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">salary</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">12</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">job_id</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>選択肢の言い回し</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文1は常に1行だけ結果を返す</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>文2は常に1行だけ結果を返す</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>文1と文2の出力は常に同じ</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>文1／文2はエラーになる</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="quiz">○×クイック判定<a class="headerlink" href="#quiz" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>記述</th>
+<th>判定</th>
+<th>ひとこと</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MAX・MINは文字列や日付にも使える</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>SUM・AVGは日付にも使える</td>
+<td>❌</td>
+<td>数値のみ</td>
+</tr>
+<tr>
+<td>COUNT(*) はNULLの行も数える</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>COUNT(列) はNULLの行も数える</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>COUNT(DISTINCT 列) はNULLを1種類として数える</td>
+<td>❌</td>
+<td>NULLは数えない</td>
+</tr>
+<tr>
+<td>AVGの分母はNULLを含む全行数</td>
+<td>❌</td>
+<td>NULLでない行数</td>
+</tr>
+<tr>
+<td>SELECTの非集計列はすべてGROUP BYに必要</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>GROUP BYの列はSELECTに必ず含める</td>
+<td>❌</td>
+<td>含めなくてよい</td>
+</tr>
+<tr>
+<td>GROUP BYに列別名を使える</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>WHEREに集計関数を書ける</td>
+<td>❌</td>
+<td>HAVING</td>
+</tr>
+<tr>
+<td>HAVINGの集計関数はSELECTにある必要がある</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>集計関数は3レベルまでネストできる</td>
+<td>❌</td>
+<td>2レベル</td>
+</tr>
+<tr>
+<td>集計関数をネストするにはGROUP BYが必要</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>ネストした集計関数とGROUP BY列を同時にSELECTできる</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>GROUP BYなしの集計は常に1行返す</td>
+<td>✅</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="フッター" >
+        
+          
+          <a href="../ch05/" class="md-footer__link md-footer__link--prev" aria-label="前: 第5章 変換関数・NULL関数・条件式">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                前
+              </span>
+              <div class="md-ellipsis">
+                第5章 変換関数・NULL関数・条件式
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../ch07/" class="md-footer__link md-footer__link--next" aria-label="次: 第7章 結合">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                次
+              </span>
+              <div class="md-ellipsis">
+                第7章 結合
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.indexes", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy", "content.tabs.link"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.525ec568.min.js"></script>
+      
+    
+  </body>
+</html>

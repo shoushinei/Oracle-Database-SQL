@@ -1,0 +1,1416 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="ORACLE MASTER Silver SQL（1Z0-071）の問題を「判定基準」で解くための論点別テキスト">
+      
+      
+      
+        <link rel="canonical" href="https://shoushinei.github.io/Oracle-Database-SQL/ch01/">
+      
+      
+        <link rel="prev" href="../howto/">
+      
+      
+        <link rel="next" href="../ch02/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+    
+    
+      
+        <title>第1章 RDBとOracleの基礎 - Silver SQL 論点潰しテキスト</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.8c3ca2c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-rdboracle" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href=".." title="Silver SQL 論点潰しテキスト" class="md-header__button md-logo" aria-label="Silver SQL 論点潰しテキスト" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Silver SQL 論点潰しテキスト
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第1章 RDBとOracleの基礎
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="deep-orange"  aria-label="ダークモードに切り替え"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切り替え" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="deep-orange"  aria-label="ライトモードに切り替え"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切り替え" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/shoushinei/Oracle-Database-SQL" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    shoushinei/Oracle-Database-SQL
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Silver SQL 論点潰しテキスト" class="md-nav__button md-logo" aria-label="Silver SQL 論点潰しテキスト" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Silver SQL 論点潰しテキスト
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/shoushinei/Oracle-Database-SQL" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    shoushinei/Oracle-Database-SQL
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howto/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    問題タイプ別の解き方
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    第1章 RDBとOracleの基礎
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    第1章 RDBとOracleの基礎
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sql-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-1 SQLの特徴
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1-1 SQLの特徴">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      SQL文の分類
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#er-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-2 E-Rモデルとリレーションシップ
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1-2 E-Rモデルとリレーションシップ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      読み方のコツ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      E-R図の用語
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-3 キーとNULL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-4 SQL*Plus と SQL Developer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alter-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-5 初期化パラメータと ALTER SESSION
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz" class="md-nav__link">
+    <span class="md-ellipsis">
+      ○×クイック判定
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第2章 SELECTの基礎とデータの扱い
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第3章 検索条件とソート・置換変数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第4章 単一行関数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第5章 変換関数・NULL関数・条件式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第6章 集計関数とGROUP BY
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第7章 結合
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch08/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第8章 副問合せ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch09/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第9章 集合演算
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch10/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第10章 DMLとトランザクション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch11/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第11章 索引・シーケンス・シノニム
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch12/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第12章 DDLによる表の管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch13/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第13章 ビュー
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch14/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第14章 ユーザー・権限・ロール
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch15/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第15章 データディクショナリ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch16/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第16章 タイムゾーンと期間
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    付録
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            付録
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix-errors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ORAエラー逆引き
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix-checklist/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    直前チェックリスト
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sql-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-1 SQLの特徴
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1-1 SQLの特徴">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      SQL文の分類
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#er-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-2 E-Rモデルとリレーションシップ
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1-2 E-Rモデルとリレーションシップ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      読み方のコツ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      E-R図の用語
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-3 キーとNULL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-4 SQL*Plus と SQL Developer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alter-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-5 初期化パラメータと ALTER SESSION
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz" class="md-nav__link">
+    <span class="md-ellipsis">
+      ○×クイック判定
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="1-rdboracle">第1章 RDBとOracleの基礎<a class="headerlink" href="#1-rdboracle" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">この章で問われる形</p>
+<ul>
+<li>「SQLに関して正しい記述はどれですか」</li>
+<li>「次のビジネスルールに基づくE-Rモデルについて正しい記述はどれですか」</li>
+<li>「キーについて正しい記述はどれですか」</li>
+<li>「SQL*Plus／SQL Developerについて正しい記述はどれですか」</li>
+</ul>
+</div>
+<hr />
+<h2 id="sql-features">1-1 SQLの特徴<a class="headerlink" href="#sql-features" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li>SQLは <strong>リレーショナルデータベース</strong> を操作する言語（階層型・ネットワーク型向けではない）</li>
+<li>SQLは <strong>非手続き型（宣言型）</strong>：「<strong>何が欲しいか</strong>」だけを書き、「<strong>どうやって探すか</strong>（アクセス方法・検索手順）」は書かない
+   → 検索方法は <strong>オプティマイザ</strong> が決める</li>
+<li>表どうしの結合は <strong>列の値（結合条件）</strong> で行う。ROWIDなどの物理的な位置を指定する必要はない</li>
+<li>物理的な格納方法を変えても、SQL（論理構造）は変えなくてよい（<strong>物理データ独立性</strong>）</li>
+</ol>
+</div>
+<table>
+<thead>
+<tr>
+<th>選択肢の言い回し</th>
+<th>判定</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SQLは階層型／ネットワーク型データベースに適した言語</td>
+<td>❌</td>
+<td>リレーショナル型の言語</td>
+</tr>
+<tr>
+<td>結合するには各表のROWIDを指定する必要がある</td>
+<td>❌</td>
+<td>値で結合する。ROWIDは不要</td>
+</tr>
+<tr>
+<td>データを論理的に処理でき、検索方法を指定する必要はない</td>
+<td>✅</td>
+<td>非手続き型</td>
+</tr>
+<tr>
+<td>SQLでは処理手順（ループ等）を記述して検索する</td>
+<td>❌</td>
+<td>手順を書くのはPL/SQLなど手続き型</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sql">SQL文の分類<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>分類</th>
+<th>文</th>
+<th>ポイント</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>問合せ</td>
+<td><code>SELECT</code></td>
+<td></td>
+</tr>
+<tr>
+<td>DML（データ操作）</td>
+<td><code>INSERT</code> <code>UPDATE</code> <code>DELETE</code> <code>MERGE</code></td>
+<td>ロールバック可能</td>
+</tr>
+<tr>
+<td>DDL（データ定義）</td>
+<td><code>CREATE</code> <code>ALTER</code> <code>DROP</code> <code>RENAME</code> <code>TRUNCATE</code> <code>COMMENT</code></td>
+<td><strong>暗黙コミット</strong>、ロールバック不可</td>
+</tr>
+<tr>
+<td>DCL（データ制御）</td>
+<td><code>GRANT</code> <code>REVOKE</code></td>
+<td>暗黙コミット</td>
+</tr>
+<tr>
+<td>トランザクション制御</td>
+<td><code>COMMIT</code> <code>ROLLBACK</code> <code>SAVEPOINT</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">ひっかけ</p>
+<p><code>TRUNCATE</code> は「行を消す」ので DML に見えますが <strong>DDL</strong> です。→ <a href="../ch12/#drop-truncate">12章 DROPとTRUNCATE</a></p>
+</div>
+<hr />
+<h2 id="er-model">1-2 E-Rモデルとリレーションシップ<a class="headerlink" href="#er-model" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li>「<strong>AはBを複数持てる</strong>」かつ「<strong>BはAを複数持てる</strong>」→ <strong>多対多（M:N）</strong></li>
+<li>片方向だけ複数 → <strong>1対多（1:N）</strong>。両方とも1つ → <strong>1対1</strong></li>
+<li>多対多はリレーショナル表として <strong>そのままは実装できない</strong>
+   → <strong>交差表（関連表・中間表）</strong> を作り、<strong>2つの1対多に分解</strong> する</li>
+<li>交差表は、両方の表の主キーを <strong>外部キー</strong> として持つ（その組合せが交差表の主キーになることが多い）</li>
+</ol>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>例: 「学生は複数の講座を受講でき、講座は複数の学生が受講する」
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>STUDENTS  1 ──&lt; ENROLLMENTS &gt;── 1  COURSES
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>(学生)          (交差表:受講)          (講座)
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                student_id (FK)
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                course_id  (FK)
+</code></pre></div>
+<h3 id="_1">読み方のコツ<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>ビジネスルールの文章を <strong>両方向</strong> から読む</li>
+<li>「1人の学生は → 講座を <strong>何件</strong> 取れる？」</li>
+<li>「1つの講座は → 学生を <strong>何人</strong> 持てる？」</li>
+<li>両方「複数」なら多対多。選択肢では「<strong>交差表を作成して1対多に分解する必要がある</strong>」が正しい形</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>選択肢の言い回し（多対多のルールに対して）</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AとBの間に1対多の関連が成り立っている</td>
+<td>❌（片方向しか見ていない）</td>
+</tr>
+<tr>
+<td>多対多の関連を分解せず、そのまま表として実装する必要がある</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>交差表を作成して1対多に分解する必要がある</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<h3 id="e-r">E-R図の用語<a class="headerlink" href="#e-r" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>用語</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>エンティティ</td>
+<td>管理対象（表になる）</td>
+</tr>
+<tr>
+<td>属性</td>
+<td>エンティティの性質（列になる）</td>
+</tr>
+<tr>
+<td>リレーションシップ</td>
+<td>エンティティ間の関連（外部キーになる）</td>
+</tr>
+<tr>
+<td>一意識別子（UID）</td>
+<td>行を一意に特定する属性（主キーになる）</td>
+</tr>
+<tr>
+<td>オプショナリティ</td>
+<td>関連が「必須」か「任意」か（任意なら外部キーにNULLを許す）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="keys">1-3 キーとNULL<a class="headerlink" href="#keys" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<table>
+<thead>
+<tr>
+<th>キー</th>
+<th>NULL</th>
+<th>重複</th>
+<th>1表にいくつ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>主キー（PRIMARY KEY）</strong></td>
+<td><strong>不可</strong></td>
+<td>不可</td>
+<td><strong>1つだけ</strong>（複数列の複合キーは可）</td>
+</tr>
+<tr>
+<td><strong>一意キー（UNIQUE）</strong></td>
+<td><strong>可（複数行でも可）</strong></td>
+<td>不可（NULL以外）</td>
+<td>複数可</td>
+</tr>
+<tr>
+<td><strong>外部キー（FOREIGN KEY）</strong></td>
+<td><strong>可</strong></td>
+<td>可</td>
+<td>複数可</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>外部キーは、親表の <strong>主キーまたは一意キー</strong> を参照する</li>
+<li>外部キーの値は「親表に存在する値」か「NULL」のどちらか</li>
+<li>一意キーにNULLが <strong>何行でも</strong> 入るのは、NULLどうしは「等しい」と判定されないから</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">ひっかけ</p>
+<ul>
+<li>「一意キー列にNULLは <strong>1行だけ</strong> 挿入できる」→ ❌（何行でも可）</li>
+<li>「外部キー列にNULLは入力できない」→ ❌（入力可。NOT NULL制約を付けた場合のみ不可）</li>
+<li>「主キーは1列でなければならない」→ ❌（複合主キー可。ただし主キー <strong>制約</strong> は1表に1つ）</li>
+</ul>
+</div>
+<p>制約の構文的なルールは → <a href="../ch12/#constraint-syntax">12章 制約</a></p>
+<hr />
+<h2 id="tools">1-4 SQL*Plus と SQL Developer<a class="headerlink" href="#tools" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li><strong>SQL*Plus</strong>：コマンドライン（文字ベース）のツール</li>
+<li><strong>SQL Developer</strong>：GUIツール。SQL*Plusのコマンドの多く（<code>DESCRIBE</code>、<code>SET VERIFY</code> など）を <strong>スクリプトとして実行可能</strong></li>
+<li>SQL文は <code>;</code>（または <code>/</code>）で実行。**SQL<em>Plusコマンド</em>* は <code>;</code> 不要で、1行で完結する</li>
+<li>SQL*Plusコマンドは <strong>省略形</strong> が使える（<code>DESCRIBE</code> → <code>DESC</code>）</li>
+</ol>
+</div>
+<table>
+<thead>
+<tr>
+<th>種類</th>
+<th>例</th>
+<th>終端</th>
+<th>データベースに送られるか</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SQL文</td>
+<td><code>SELECT</code> <code>INSERT</code> <code>CREATE</code> ...</td>
+<td><code>;</code> または <code>/</code></td>
+<td>送られる</td>
+</tr>
+<tr>
+<td>SQL*Plusコマンド</td>
+<td><code>DESCRIBE</code> <code>SET</code> <code>DEFINE</code> <code>UNDEFINE</code> <code>SHOW</code> <code>CONNECT</code> <code>EXIT</code></td>
+<td>不要</td>
+<td>クライアント側で処理</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">ひっかけ</p>
+<p>「DESCRIBEはSQL*Plusでのみ使える（SQL Developerでは使えない）」→ ❌
+「SET VERIFY はSQL Developerでは使えない」→ ❌
+いずれもSQL Developerでも使えます。→ <a href="../ch02/#describe">2章 DESCRIBE</a> / <a href="../ch03/#define">3章 VERIFY</a></p>
+</div>
+<hr />
+<h2 id="alter-session">1-5 初期化パラメータと ALTER SESSION<a class="headerlink" href="#alter-session" title="Permanent link">&para;</a></h2>
+<div class="rule-box">
+<p><strong>判定基準</strong></p>
+<ol>
+<li><code>ALTER SESSION SET パラメータ = 値</code> は <strong>そのセッションだけ</strong> に有効（他のセッションや次回接続には影響しない）</li>
+<li>日付の表示・解釈に関わるのは <code>NLS_DATE_FORMAT</code>、<code>NLS_DATE_LANGUAGE</code>、<code>NLS_LANGUAGE</code>、<code>NLS_TERRITORY</code> など</li>
+<li><code>ALTER SESSION</code> は <strong>DDLではない</strong>（トランザクションを暗黙コミットしない）</li>
+</ol>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">NLS_DATE_FORMAT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'YYYY-MM-DD HH24:MI:SS'</span><span class="p">;</span><span class="w">   </span><span class="c1">-- ✅</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">NLS_DATE_LANGUAGE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'AMERICAN'</span><span class="p">;</span><span class="w">              </span><span class="c1">-- ✅ 月名が JAN, FEB...</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">TIME_ZONE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Asia/Tokyo'</span><span class="p">;</span><span class="w">                    </span><span class="c1">-- ✅ セッションのタイムゾーン</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">問題文の前提条件として出てくる</p>
+<p>「NLS_DATE_FORMATが DD-MON-RR に設定されている」などの前提は、<strong>暗黙の変換が成功するか</strong> の判定に使います。→ <a href="../ch05/#implicit">5章 暗黙の変換</a></p>
+</div>
+<hr />
+<h2 id="quiz">○×クイック判定<a class="headerlink" href="#quiz" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>記述</th>
+<th>判定</th>
+<th>ひとこと</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SQLは非手続き型言語で、検索方法を指定しなくてよい</td>
+<td>✅</td>
+<td>オプティマイザが決める</td>
+</tr>
+<tr>
+<td>SQLで結合するにはROWIDを指定する必要がある</td>
+<td>❌</td>
+<td>値で結合</td>
+</tr>
+<tr>
+<td>多対多の関連はそのまま1つの表で実装する</td>
+<td>❌</td>
+<td>交差表で1対多×2に分解</td>
+</tr>
+<tr>
+<td>主キー列にNULLは入力できない</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>一意キー列にNULLは入力できない</td>
+<td>❌</td>
+<td>何行でも可</td>
+</tr>
+<tr>
+<td>一意キー列にNULLは1行だけ入力できる</td>
+<td>❌</td>
+<td>何行でも可</td>
+</tr>
+<tr>
+<td>外部キー列にNULLは入力できない</td>
+<td>❌</td>
+<td>入力可</td>
+</tr>
+<tr>
+<td>外部キーは親表の主キーまたは一意キーを参照する</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>1つの表に主キー制約は複数定義できる</td>
+<td>❌</td>
+<td>1つだけ（複数列の複合は可）</td>
+</tr>
+<tr>
+<td>TRUNCATEはDMLである</td>
+<td>❌</td>
+<td>DDL</td>
+</tr>
+<tr>
+<td>ALTER SESSIONの設定は他のセッションにも反映される</td>
+<td>❌</td>
+<td>そのセッションのみ</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="フッター" >
+        
+          
+          <a href="../howto/" class="md-footer__link md-footer__link--prev" aria-label="前: 問題タイプ別の解き方">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                前
+              </span>
+              <div class="md-ellipsis">
+                問題タイプ別の解き方
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../ch02/" class="md-footer__link md-footer__link--next" aria-label="次: 第2章 SELECTの基礎とデータの扱い">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                次
+              </span>
+              <div class="md-ellipsis">
+                第2章 SELECTの基礎とデータの扱い
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.indexes", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy", "content.tabs.link"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.525ec568.min.js"></script>
+      
+    
+  </body>
+</html>
