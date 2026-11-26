@@ -6,3 +6,6 @@
 site/
 .venv/
 __pycache__/
+
+# local tool settings
+.claude/

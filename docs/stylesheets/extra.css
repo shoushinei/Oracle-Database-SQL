@@ -1,0 +1,45 @@
+/* 日本語本文を読みやすく */
+:root {
+  --md-text-font: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", Meiryo, sans-serif;
+  --md-code-font: "Consolas", "Menlo", "Source Code Pro", monospace;
+}
+
+.md-typeset {
+  line-height: 1.8;
+}
+
+/* 表はスマホで横スクロールさせる（ページ全体は横に広げない） */
+.md-typeset__table {
+  max-width: 100%;
+}
+
+.md-typeset table:not([class]) th {
+  white-space: nowrap;
+}
+
+/* ○ × の判定ラベル */
+.ok {
+  color: #2e7d32;
+  font-weight: 700;
+}
+
+.ng {
+  color: #c62828;
+  font-weight: 700;
+}
+
+[data-md-color-scheme="slate"] .ok {
+  color: #81c784;
+}
+
+[data-md-color-scheme="slate"] .ng {
+  color: #ef9a9a;
+}
+
+/* ルール番号付きリストを少し強調 */
+.md-typeset .rule-box {
+  border-left: 4px solid var(--md-accent-fg-color);
+  padding: 0.4em 1em;
+  margin: 1em 0;
+  background: var(--md-code-bg-color);
+}
