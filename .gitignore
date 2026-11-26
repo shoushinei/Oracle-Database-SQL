@@ -1,0 +1,8 @@
+# 書籍の写真（著作権物）は公開リポジトリに含めない
+目次/
+模擬問題/
+
+# MkDocs build output / local env
+site/
+.venv/
+__pycache__/
